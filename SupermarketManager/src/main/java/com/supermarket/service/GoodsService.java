@@ -6,22 +6,21 @@ import java.util.Map;
 import com.supermarket.entity.Goods;
 
 public interface GoodsService {
+    Goods findByTypeId(Integer id);
 
-	public Goods findByTypeId(Integer id);
+    List<Goods> findAll(Map<String, Object> map);
 
-	public List<Goods> findAll(Map<String, Object> map);
+    Long count(Map<String, Object> map);
 
-	public Long count(Map<String, Object> map);
-	
-	public Goods findCode(Integer id);
-	
-	public Goods isEchoe(String name);
-	
-	public Integer add(Goods goods);
-	
-	public Integer update(Goods goods);
-	
-	public Goods finddel(Integer id);
-	
-	public Goods findById(Integer id);
+    Goods findCode(Integer id);
+
+    Goods isEchoe(String name);
+
+    Integer add(Goods goods);
+
+    Integer update(Goods goods);
+
+    Goods finddel(Integer id);
+
+    Goods findById(Integer id);
 }

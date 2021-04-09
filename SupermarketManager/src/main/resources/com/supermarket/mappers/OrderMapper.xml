@@ -3,12 +3,11 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.supermarket.dao.OrderDao">
-
 	<resultMap type="Order" id="OrderResult">
 		<result property="id" column="id" />
 		<result property="remark" column="remark" />
 		<result property="code" column="code" />
-		<result property="supplier_id" column="supplier_id" />
+		<result property="supplierId" column="supplier_id" />
 		<result property="state" column="state" />
 		<result property="createdate" column="createdate" />
 		<result property="paydate" column="paydate" />
@@ -40,11 +39,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and code =#{code}
 		</if>
 	</select>
-	
-	
+
 	<insert id="add" parameterType="Order">
 		insert into sm_order
 		values(null,#{code},#{supplier_id},#{state},now(),#{paydate},#{remark},#{paymoney})
 	</insert>
-	
 </mapper> 

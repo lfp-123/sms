@@ -11,22 +11,21 @@ import com.supermarket.service.UserRoleService;
 
 @Service("userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {
-
 	@Resource
 	private UserRoleDao userRoleDao;
 
+	@Override
 	public Integer add(UserRole userRole) {
 		return userRoleDao.add(userRole);
 	}
 
+	@Override
 	public UserRole findAll(String userName) {
 		return userRoleDao.findAll(userName);
 	}
 
+	@Override
 	public Integer delete(Integer id) {
 		return userRoleDao.delete(id);
 	}
-
-	
-
 }

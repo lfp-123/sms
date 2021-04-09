@@ -6,12 +6,11 @@ import java.util.Map;
 import com.supermarket.entity.Order;
 
 public interface OrderDao {
-	
-	public Order getTodayMaxNumber();
-	
-	public List<Order> findAll(Map<String,Object> map);
-	
-	public Long count(Map<String,Object> map);
-	
-	public Integer add(Order order);
+    Order getTodayMaxNumber();
+
+    List<Order> findAll(Map<String, Object> map);
+
+    Long count(Map<String, Object> map);
+
+    Integer add(Order order);
 }

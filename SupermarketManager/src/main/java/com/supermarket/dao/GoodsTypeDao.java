@@ -6,23 +6,21 @@ import java.util.Map;
 import com.supermarket.entity.GoodsType;
 
 public interface GoodsTypeDao {
+    List<GoodsType> findByGoodsType(Integer parentId);
 
-	public List<GoodsType> findByGoodsType(Integer parentId);
+    GoodsType findByStateId(Integer id);
 
-	public GoodsType findByStateId(Integer id);
+    GoodsType findByPid(Integer id);
 
-	public GoodsType findByPid(Integer id);
-	
-	public List<GoodsType> findAll(Map<String,Object> map);
-	
-	public Integer delete(Integer id);
-	
-	public GoodsType isEchoes(String name);
-	
-	public Integer update(GoodsType goodsType);
-	
-	public GoodsType findById(Integer id);
-	
-	public Integer add(GoodsType goodsType);
-	
+    List<GoodsType> findAll(Map<String, Object> map);
+
+    Integer delete(Integer id);
+
+    GoodsType isEchoes(String name);
+
+    Integer update(GoodsType goodsType);
+
+    GoodsType findById(Integer id);
+
+    Integer add(GoodsType goodsType);
 }

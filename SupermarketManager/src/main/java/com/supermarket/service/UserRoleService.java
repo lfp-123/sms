@@ -3,11 +3,9 @@ package com.supermarket.service;
 import com.supermarket.entity.UserRole;
 
 public interface UserRoleService {
+    Integer add(UserRole userRole);
 
-	public Integer add(UserRole userRole);
-	
-	public UserRole findAll(String userName);
-	
-	public Integer delete(Integer id);
+    UserRole findAll(String userName);
 
+    Integer delete(Integer id);
 }

@@ -13,40 +13,46 @@ import com.supermarket.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-
 	@Resource
 	private UserDao userDao;
 
+	@Override
 	public User findByUserName(String userName) {
 		return userDao.findByUserName(userName);
 	}
 
+	@Override
 	public List<User> findAll(Map<String, Object> map) {
 		return userDao.findAll(map);
 	}
 
+	@Override
 	public Long count(Map<String, Object> map) {
 		return userDao.count(map);
 	}
 
+	@Override
 	public Integer add(User user) {
 		return userDao.add(user);
 	}
 
+	@Override
 	public Integer delete(Integer id) {
 		return userDao.delete(id);
 	}
 
+	@Override
 	public Integer update(User user) {
 		return userDao.update(user);
 	}
 
+	@Override
 	public Integer updateReset(Integer id) {
 		return userDao.updateReset(id);
 	}
 
+	@Override
 	public User findRoleId(String userName) {
 		return userDao.findRoleId(userName);
 	}
-
 }

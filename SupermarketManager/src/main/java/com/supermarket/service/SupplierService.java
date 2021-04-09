@@ -6,16 +6,15 @@ import java.util.Map;
 import com.supermarket.entity.Supplier;
 
 public interface SupplierService {
+    List<Supplier> findAll(Map<String, Object> map);
 
-	public List<Supplier> findAll(Map<String, Object> map);
+    Long count(Map<String, Object> map);
 
-	public Long count(Map<String, Object> map);
-	
-	public Integer add(Supplier supplier);
-	
-	public Supplier findRepeat(String name);
-	
-	public Integer delete(Integer id);
+    Integer add(Supplier supplier);
 
-	public Integer update(Supplier supplier);
+    Supplier findRepeat(String name);
+
+    Integer delete(Integer id);
+
+    Integer update(Supplier supplier);
 }

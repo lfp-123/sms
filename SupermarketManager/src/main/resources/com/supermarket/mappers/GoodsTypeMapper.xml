@@ -3,12 +3,11 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.supermarket.dao.GoodsTypeDao">
-
 	<resultMap type="GoodsType" id="GoodsTypeResult">
 		<result property="id" column="id"/>
 		<result property="icon" column="icon"/>
 		<result property="name" column="name"/>
-		<result property="p_id" column="p_id"/>
+		<result property="pId" column="p_id"/>
 		<result property="state" column="state"/>
 	</resultMap>
 	
@@ -65,6 +64,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findByPid" parameterType="Integer"  resultMap="GoodsTypeResult">
 		select * from  sm_goodstype where p_id=#{p_id} limit 0,1
 	</select>
-	
-	
 </mapper> 

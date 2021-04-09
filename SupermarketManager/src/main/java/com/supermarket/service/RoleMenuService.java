@@ -5,10 +5,9 @@ import java.util.List;
 import com.supermarket.entity.RoleMenu;
 
 public interface RoleMenuService {
+    List<RoleMenu> isRoleIdExistence(Integer id);
 
-	public List<RoleMenu> isRoleIdExistence(Integer id);
+    Integer deleteRoleId(Integer id);
 
-	public Integer deleteRoleId(Integer id);
-	
-	public Integer add(RoleMenu roleMenu);
+    Integer add(RoleMenu roleMenu);
 }

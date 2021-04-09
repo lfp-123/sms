@@ -6,17 +6,15 @@ import java.util.Map;
 import com.supermarket.entity.Supplier;
 
 public interface SupplierDao {
-	
-	
-	public List<Supplier> findAll(Map<String,Object> map);
-	
-	public Long count(Map<String, Object> map);
-	
-	public Integer add(Supplier supplier);
-	
-	public Supplier findRepeat(String name);
-	
-	public Integer delete(Integer id);
-	
-	public Integer update(Supplier supplier);
+    List<Supplier> findAll(Map<String, Object> map);
+
+    Long count(Map<String, Object> map);
+
+    Integer add(Supplier supplier);
+
+    Supplier findRepeat(String name);
+
+    Integer delete(Integer id);
+
+    Integer update(Supplier supplier);
 }

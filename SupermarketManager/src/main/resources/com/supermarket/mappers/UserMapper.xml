@@ -3,7 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.supermarket.dao.UserDao">
-
 	<resultMap type="User" id="UserResult">
 		<result property="id" column="id"/>
 		<result property="userName" column="userName"/>
@@ -14,8 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="address" column="address"/>
 		<result property="roleName" column="roleName"/>
 	</resultMap>
-	
-	
+
 	<select id="findByUserName"  resultMap="UserResult" parameterType="String">
 			select * from sm_user where userName = #{userName}
 	</select>
@@ -75,5 +73,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findRoleId"  resultMap="UserResult" parameterType="String">
 		SELECT t1.*,t2.roleName,t2.id as roleId FROM sm_user t1 LEFT JOIN sm_roleuser t3 ON t1.id = t3.userId LEFT JOIN sm_role t2 ON t2.id = t3.roleId where t1.userName=#{userName}
 	</select>
-	
-</mapper> 
+</mapper>

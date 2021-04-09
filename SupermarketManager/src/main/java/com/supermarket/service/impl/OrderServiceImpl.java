@@ -13,22 +13,25 @@ import com.supermarket.service.OrderService;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
-
 	@Resource
 	private OrderDao orderDao;
 
+	@Override
 	public Order getTodayMaxNumber() {
 		return orderDao.getTodayMaxNumber();
 	}
 
+	@Override
 	public List<Order> findAll(Map<String, Object> map) {
 		return orderDao.findAll(map);
 	}
 
+	@Override
 	public Long count(Map<String, Object> map) {
 		return orderDao.count(map);
 	}
 
+	@Override
 	public Integer add(Order order) {
 		return orderDao.add(order);
 	}

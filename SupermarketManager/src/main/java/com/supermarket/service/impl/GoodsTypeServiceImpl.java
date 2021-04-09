@@ -13,45 +13,51 @@ import com.supermarket.service.GoodsTypeService;
 
 @Service("goodsTypeService")
 public class GoodsTypeServiceImpl implements GoodsTypeService {
+    @Resource
+    private GoodsTypeDao goodsTypeDao;
 
-	@Resource
-	private GoodsTypeDao goodsTypeDao;
+    @Override
+    public List<GoodsType> findByGoodsType(Integer parentId) {
+        return goodsTypeDao.findByGoodsType(parentId);
+    }
 
-	public List<GoodsType> findByGoodsType(Integer parentId) {
-		return goodsTypeDao.findByGoodsType(parentId);
-	}
+    @Override
+    public GoodsType findByStateId(Integer id) {
+        return goodsTypeDao.findByStateId(id);
+    }
 
-	public GoodsType findByStateId(Integer id) {
-		return goodsTypeDao.findByStateId(id);
-	}
+    @Override
+    public GoodsType findByPid(Integer id) {
+        return goodsTypeDao.findByPid(id);
+    }
 
-	public GoodsType findByPid(Integer id) {
-		return goodsTypeDao.findByPid(id);
-	}
+    @Override
+    public List<GoodsType> findAll(Map<String, Object> map) {
+        return goodsTypeDao.findAll(map);
+    }
 
-	public List<GoodsType> findAll(Map<String, Object> map) {
-		return goodsTypeDao.findAll(map);
-	}
+    @Override
+    public Integer delete(Integer id) {
+        return goodsTypeDao.delete(id);
+    }
 
-	public Integer delete(Integer id) {
-		return goodsTypeDao.delete(id);
-	}
+    @Override
+    public GoodsType isEchoes(String name) {
+        return goodsTypeDao.isEchoes(name);
+    }
 
-	public GoodsType isEchoes(String name) {
-		return goodsTypeDao.isEchoes(name);
-	}
+    @Override
+    public Integer update(GoodsType goodsType) {
+        return goodsTypeDao.update(goodsType);
+    }
 
-	public Integer update(GoodsType goodsType) {
-		return goodsTypeDao.update(goodsType);
-	}
+    @Override
+    public GoodsType findById(Integer id) {
+        return goodsTypeDao.findById(id);
+    }
 
-	public GoodsType findById(Integer id) {
-		return goodsTypeDao.findById(id);
-	}
-
-	public Integer add(GoodsType goodsType) {
-		return goodsTypeDao.add(goodsType);
-	}
-
-
+    @Override
+    public Integer add(GoodsType goodsType) {
+        return goodsTypeDao.add(goodsType);
+    }
 }

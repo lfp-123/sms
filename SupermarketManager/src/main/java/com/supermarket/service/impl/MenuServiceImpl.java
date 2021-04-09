@@ -12,21 +12,21 @@ import com.supermarket.service.MenuService;
 
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
-
 	@Resource
 	private MenuDao menuDao;
 
+	@Override
 	public List<Menu> menuList(Integer roleId) {
 		return menuDao.menuList(roleId);
 	}
 
+	@Override
 	public List<Menu> findByRoleIdMenu(Integer roleId) {
 		return menuDao.findByRoleIdMenu(roleId);
 	}
 
+	@Override
 	public List<Menu> findByParentIdAndRoleId(Integer parentId) {
 		return menuDao.findByParentIdAndRoleId(parentId);
 	}
-
-
 }
