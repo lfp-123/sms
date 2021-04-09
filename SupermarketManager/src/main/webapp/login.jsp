@@ -71,7 +71,7 @@ canvas{z-index:-1;position:absolute;}
   <input type="button" id="loginBtn" value="立即登陆" class="submit_btn"/>
  </dd>
  <dd>
-  <p>© XXXX  版权所有</p>
+  <p>© 黄银标  版权所有</p>
  </dd>
 </dl>
 </body>

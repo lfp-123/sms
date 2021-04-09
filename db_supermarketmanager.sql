@@ -2,9 +2,10 @@
 SQLyog Ultimate v11.33 (64 bit)
 MySQL - 5.7.18-log : Database - supermarketmanagerdb
 *********************************************************************
-*/
+*/
 
-/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET NAMES UTF8MB4 */;
 
 /*!40101 SET SQL_MODE=''*/;
 
@@ -12,7 +13,7 @@ MySQL - 5.7.18-log : Database - supermarketmanagerdb
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`supermarketmanagerdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`supermarketmanagerdb` /*!40100 DEFAULT CHARACTER SET UTF8MB4 */;
 
 USE `supermarketmanagerdb`;
 
@@ -38,7 +39,7 @@ CREATE TABLE `sm_goods` (
   `salenumber` int(11) DEFAULT NULL,
   `returnnumber` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_goods` */
 
@@ -55,7 +56,7 @@ CREATE TABLE `sm_goodstype` (
   `p_id` int(11) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_goodstype` */
 
@@ -74,7 +75,7 @@ CREATE TABLE `sm_menu` (
   `url` varchar(255) DEFAULT NULL,
   `d_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_menu` */
 
@@ -94,7 +95,7 @@ CREATE TABLE `sm_order` (
   `remark` varchar(255) DEFAULT NULL,
   `paymoney` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_order` */
 
@@ -109,7 +110,7 @@ CREATE TABLE `sm_role` (
   `roleName` varchar(50) DEFAULT NULL,
   `roleRemark` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_role` */
 
@@ -124,7 +125,7 @@ CREATE TABLE `sm_rolemenu` (
   `roleId` int(11) DEFAULT NULL,
   `menuId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_rolemenu` */
 
@@ -139,7 +140,7 @@ CREATE TABLE `sm_roleuser` (
   `roleId` int(11) DEFAULT NULL,
   `userId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_roleuser` */
 
@@ -157,7 +158,7 @@ CREATE TABLE `sm_supplier` (
   `number` varchar(50) DEFAULT NULL,
   `remarks` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_supplier` */
 
@@ -175,7 +176,7 @@ CREATE TABLE `sm_user` (
   `number` varchar(20) DEFAULT NULL,
   `address` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=UTF8MB4;
 
 /*Data for the table `sm_user` */
 
