@@ -1,7 +1,10 @@
 package com.supermarket.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.supermarket.entity.Dept;
 import com.supermarket.entity.Employees;
 import com.supermarket.service.EmpService;
 import com.supermarket.util.ResponseUtil;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,19 +28,40 @@ public class EmpController {
 
     @ResponseBody
     @RequestMapping("/empList")
-    public Map<String, Object> userList(Employees emp,
-                                        @RequestParam(value = "page", required = false) Integer page,
+    public Map<String, Object> userList(@RequestParam(value = "page", required = false) Integer page,
                                         @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        // 不知道为什么 这个有乱码 估计是roleInfo.jsp是复制的原因吧
-        if (emp.getEmpName() != null) {
-            String empName = new String(emp.getEmpName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            result.put("empName", empName);
+        List<Employees> empList = empService.findAll(result);
+        Map<String, Object> empMap;
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        for (Employees employees : empList) {
+            empMap = new HashMap<>(16);
+            empMap.put("id", employees.getEmpId());
+            empMap.put("empName", employees.getEmpName());
+            empMap.put("empNativePlace", employees.getEmpNativePlace());
+            empMap.put("empAddr", employees.getEmpAddr());
+            empMap.put("empPhone", employees.getEmpPhone());
+            empMap.put("empIdentity", employees.getEmpIdentity());
+            if (employees.getEmpSex() == 0) {
+                empMap.put("empSex", "女");
+            } else if (employees.getEmpSex() == 1) {
+                empMap.put("empSex", "男");
+            } else {
+                empMap.put("empSex", null);
+            }
+            empMap.put("empDept", empService.findDeptName(employees.getDeptId()));
+            empMap.put("empDescribe", employees.getEmpDescribe());
+            resultList.add(empMap);
         }
-        System.out.println(emp.getEmpName());
-        List<Employees> roleList = empService.findAll(result);
         Long count = empService.count(result);
-        return ResponseUtil.result(roleList, count);
+        return ResponseUtil.result(resultList, count);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getDept")
+    public String deptList() {
+        List<Dept> deptList = empService.findAllDept();
+        return JSON.toJSONString(deptList);
     }
 
     @ResponseBody
@@ -46,8 +70,11 @@ public class EmpController {
         Map<String, Object> result = new HashMap<>(2);
         Employees empName = empService.findRepeat(emp.getEmpName());
         if (empName == null) {
-            empService.add(emp);
-            result.put("success", true);
+            if (empService.add(emp) > 0) {
+                result.put("success", true);
+            } else {
+                result.put("success", false);
+            }
         } else {
             result.put("success", false);
             result.put("errorInfo", "用户名已存在！");
@@ -59,8 +86,11 @@ public class EmpController {
     @RequestMapping("/delete")
     public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(2);
-        empService.delete(id);
-        result.put("success", true);
+        if (empService.delete(id) > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+        }
         return result;
     }
 
@@ -68,8 +98,12 @@ public class EmpController {
     @RequestMapping("/update")
     public Map<String, Object> update(Employees emp) {
         Map<String, Object> result = new HashMap<>(2);
-        empService.update(emp);
-        result.put("success", true);
+        if (empService.update(emp) > 0) {
+            result.put("success", true);
+        } else {
+            result.put("success", false);
+            result.put("errorInfo", "修改失败");
+        }
         return result;
     }
 

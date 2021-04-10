@@ -1,13 +1,12 @@
 package com.supermarket.dao;
 
+import com.supermarket.entity.Dept;
 import com.supermarket.entity.Employees;
 
 import java.util.List;
 import java.util.Map;
 
 public interface EmployeesDao {
-    Employees findByRoleName(Integer id);
-
     List<Employees> findAll(Map<String, Object> map);
 
     Long count(Map<String, Object> map);
@@ -19,4 +18,10 @@ public interface EmployeesDao {
     Integer delete(Integer id);
 
     Integer update(Employees emp);
+
+    Employees findByEmpId(Integer id);
+
+    String findDeptName(Integer deptId);
+
+    List<Dept> findAllDept();
 }

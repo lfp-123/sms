@@ -34,7 +34,6 @@ public class RoleController {
                                         @RequestParam(value = "page", required = false) Integer page,
                                         @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        // 不知道为什么 这个有乱码 估计是roleInfo.jsp是复制的原因吧
         if (role.getRoleName() != null) {
             String roleName = new String(role.getRoleName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             result.put("roleName", roleName);
@@ -51,7 +50,11 @@ public class RoleController {
         Map<String, Object> result = new HashMap<>(2);
         Role roleName = roleService.findRepeat(role.getRoleName());
         if (roleName == null) {
-            roleService.add(role);
+            if (roleService.add(role) > 0) {
+                result.put("success", true);
+            } else {
+                result.put("success", false);
+            }
             result.put("success", true);
         } else {
             result.put("success", false);

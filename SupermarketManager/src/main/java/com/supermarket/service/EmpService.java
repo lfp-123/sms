@@ -1,5 +1,6 @@
 package com.supermarket.service;
 
+import com.supermarket.entity.Dept;
 import com.supermarket.entity.Employees;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface EmpService {
     Integer delete(Integer id);
 
     Integer update(Employees role);
+
+    List<Dept> findAllDept();
+
+    String findDeptName(Integer deptId);
 }

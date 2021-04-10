@@ -25,11 +25,14 @@
             , page: true //开启分页
             , id: 'testReload'
             , cols: [[ //表头
-                {field: 'id', title: 'ID', align: 'center', sort: true, fixed: 'left'}
-                , {field: 'empName', align: 'center', title: '姓名'}
+                {field: 'empName', align: 'center', title: '姓名', sort: true, fixed: 'left'}
                 , {field: 'empNativePlace', align: 'center', title: '籍贯'}
                 , {field: 'empAddr', align: 'center', title: '地址'}
                 , {field: 'empPhone', align: 'center', title: '电话'}
+                , {field: 'empIdentity', align: 'center', title: '身份证'}
+                , {field: 'empSex', align: 'center', title: '性别'}
+                , {field: 'empDept', align: 'center', title: '部门'}
+                , {field: 'empDescribe', align: 'center', title: '描述'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
@@ -40,7 +43,7 @@
                 let demoReload = $('#demoReload');
                 table.reload('testReload', {
                     where: {
-                        roleName: demoReload.val()
+                        empName: demoReload.val()
                     }
                 });
             }
@@ -84,33 +87,64 @@
                     });
                 });
             } else if (obj.event === 'edit') {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/emp/getDept.do',
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (result) {
+                        //使用循环遍历，给下拉列表赋值
+                        $.each(result, function (index, item) {
+                            //option 第一个参数是页面显示的值，第二个参数是传递到后台的值
+                            $('#deptId').append(new Option(item.deptName, item.deptId));//往下拉菜单里添加元素
+                        })
+                        //重新渲染 固定写法
+                        form.render('select')
+                    }
+                });
+
                 //修改员工
                 layer.open({
                     type: 1
                     , anim: 5
                     , title: "修改员工"
-                    , area: ['500px', '320px']
+                    , area: ['1000px', '1000px']
                     , resize: false
-                    , offset: '100px'
+                    , offset: '0px'
                     , shade: 0
                     , content: $("#add", function () {
                         $("#id").val(data.id);
-                        $("#roleName").val(data.roleName);
-                        $("#roleRemark").val(data.roleRemark);
-                        $("#roleName").attr("disabled", true);
+                        $("#empName").val(data.empName);
+                        $("#empNativePlace").val(data.empNativePlace);
+                        $("#empAddr").val(data.empAddr);
+                        $("#empPhone").val(data.empPhone);
+                        $("#empIdentity").val(data.empIdentity);
+                        $("#empSex").val(data.empSex);
+                        $("#deptId").val(data.deptId);
+                        $("#empDescribe").val(data.empDescribe);
                     })
                     , btn: '保存'
                     , btnAlign: 'r'
                     , closeBtn: 1
                     , yes: function () {
                         let id = $("#id").val();
-                        let roleName = $("#roleName").val();
-                        let roleRemark = $("#roleRemark").val();
-
+                        let empName = $("#empName").val();
+                        let empNativePlace = $("#empNativePlace").val();
+                        let empAddr = $("#empAddr").val();
+                        let empPhone = $("#empPhone").val();
+                        let empIdentity = $("#empIdentity").val();
+                        let empSex = $("#empSex").val();
+                        let deptId = $("#deptId").val();
+                        let empDescribe = $("#empDescribe").val();
                         $.post("${pageContext.request.contextPath}/emp/update.do", {
-                            id: id,
-                            roleName: roleName,
-                            roleRemark: roleRemark
+                            empId: id,
+                            empName: empName,
+                            empNativePlace: empNativePlace,
+                            empAddr: empAddr,
+                            empPhone: empPhone,
+                            empIdentity: empIdentity,
+                            empSex: empSex,
+                            deptId: deptId,
+                            empDescribe: empDescribe,
                         }, function (result) {
                             if (result.success) {
                                 layer.closeAll();
@@ -120,7 +154,6 @@
                                 layer.msg(result.errorInfo, {icon: 5});
                             }
                         });
-
                     }
                     , cancel: function (index, layero) {
                         setTimeout("refreshPage()", 100);
@@ -139,7 +172,7 @@
     <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
         员工名称：
         <div class="layui-inline">
-            <input class="layui-input" name="roleName" id="demoReload" autocomplete="off">
+            <input class="layui-input" name="empName" id="demoReload" autocomplete="off">
         </div>
         <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
         <button data-method="offset" data-type="auto" class="layui-btn"><i class="layui-icon">&#xe654;</i>添加员工</button>
@@ -160,7 +193,7 @@
                     type: 1
                     , anim: 5
                     , title: "添加员工"
-                    , area: ['500px', '320px']
+                    , area: ['700px', '700px']
                     , resize: false
                     , shade: 0
                     , offset: '60px'
@@ -168,15 +201,27 @@
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中
                     , yes: function () {
-                        let roleName = $("#roleName").val();
-                        let roleRemark = $("#roleRemark").val();
-                        if (roleName == null || roleName === '') {
+                        let empName = $("#empName").val();
+                        let empNativePlace = $("#empNativePlace").val();
+                        let empAddr = $("#empAddr").val();
+                        let empPhone = $("#empPhone").val();
+                        let empIdentity = $("#empIdentity").val();
+                        let empSex = $("#empSex").val();
+                        let deptId = $("#deptId").val();
+                        let empDescribe = $("#empDescribe").val();
+                        if (empName == null || empName === '') {
                             layer.msg('员工名不能为空！', {icon: 5});
                             return false;
                         }
                         $.post("${pageContext.request.contextPath}/emp/add.do", {
-                            roleName: roleName,
-                            roleRemark: roleRemark
+                            empName: empName,
+                            empNativePlace: empNativePlace,
+                            empAddr: empAddr,
+                            empPhone: empPhone,
+                            empIdentity: empIdentity,
+                            empSex: empSex,
+                            deptId: deptId,
+                            empDescribe: empDescribe,
                         }, function (result) {
                             if (result.success) {
                                 layer.closeAll();
@@ -205,23 +250,69 @@
     }
 </script>
 <table id="demo" lay-filter="test"></table>
-<form class="layui-form" id="add" action="" style="display:none;padding-left: 10%">
+<form class="layui-form" id="add" action="" style="display:none;">
     <div class="layui-form-item" style="padding: 15px;">
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">员工名</label>
-        <div class="layui-input-block">
-            <input type="hidden" name="id" id="id" style="width: 15px;" lay-verify="title" autocomplete="off"
-                   class="layui-input">
-            <input type="text" name="roleName" id="roleName" style="width: 250px;" lay-verify="title" autocomplete="off"
-                   placeholder="请输入员工名" class="layui-input">
+        <div class="layui-form-item">
+            <input type="hidden" name="id" id="id" autocomplete="off" class="layui-input">
         </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">备注</label>
-        <div class="layui-input-block">
-            <textarea name="roleRemark" id="roleRemark" placeholder="请输入内容" class="layui-textarea"
-                      style="width: 250px;" cols="" rows=""></textarea>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="empName" id="empName" lay-verify="required"
+                       autocomplete="off"
+                       placeholder="请输入姓名" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">籍贯</label>
+            <div class="layui-input-block">
+                <input type="text" name="empNativePlace" id="empNativePlace"
+                       autocomplete="off"
+                       placeholder="请输入籍贯" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址</label>
+            <input type="text" name="empAddr" id="empAddr" autocomplete="off"
+                   placeholder="请输入地址" class="layui-input">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="empPhone" id="empPhone" lay-verify="phone"
+                       autocomplete="off"
+                       placeholder="请输入电话" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证</label>
+            <div class="layui-input-block">
+                <input type="text" name="empIdentity" id="empIdentity" lay-verify="identity"
+                       autocomplete="off"
+                       placeholder="请输入身份证" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <select name="empSex" id="empSex">
+                    <option value="0">女</option>
+                    <option value="1">男</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item" lay-filter="deptId">
+            <label class="layui-form-label">部门</label>
+            <select name="deptId" id="deptId">
+                <option value="null">请选择</option>
+            </select>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+            <textarea name="empDescribe" id="empDescribe" placeholder="请输入描述" class="layui-textarea"
+                      cols="" rows=""></textarea>
+            </div>
         </div>
     </div>
 </form>
