@@ -54,8 +54,7 @@ public class UserController {
             subject.login(token);
             String userName = (String) SecurityUtils.getSubject().getPrincipal();
             User currentUser = userService.findByUserName(userName);
-            UserRole userRole = userRoleService.findAll(currentUser.getUserName());
-            List<Menu> menuList = menuService.menuList(userRole.getRoleId());
+            List<Menu> menuList = menuService.allMenuList();
             session.setAttribute("menuList", menuList);
             session.setAttribute("currentUser", currentUser);
             map.put("success", true);

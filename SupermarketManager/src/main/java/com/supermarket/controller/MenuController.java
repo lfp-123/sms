@@ -90,7 +90,7 @@ public class MenuController {
 
     @ResponseBody
     @RequestMapping("/save")
-    public Map<String, Object> save(Integer roleId, String[] nodes) throws Exception {
+    public Map<String, Object> save(Integer roleId, String[] nodes) {
         Map<String, Object> result = new HashMap<>(2);
         if (nodes != null) {
             if (roleMenuService.isRoleIdExistence(roleId).size() > 0) {

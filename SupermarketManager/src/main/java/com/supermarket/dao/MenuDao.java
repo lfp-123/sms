@@ -10,4 +10,6 @@ public interface MenuDao {
     List<Menu> findByRoleIdMenu(Integer roleId);
 
     List<Menu> findByParentIdAndRoleId(Integer parentId);
+
+    List<Menu> allMenuList();
 }

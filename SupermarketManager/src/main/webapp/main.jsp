@@ -125,19 +125,21 @@
                         </c:forEach>
                     </li>
                 </shiro:hasAnyRoles>
-                <shiro:hasRole name="admin">
-                    <c:forEach var="menu" items="${menuList}">
-                        <c:if test="${menu.PId==50}">
-                            <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
-                        </c:if>
-                        <dl class="layui-nav-child">
-                            <c:if test="${menu.PId==5050 }">
-                                <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
-                                        class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                <shiro:hasAnyRoles name="admin">
+                    <li class="layui-nav-item">
+                        <c:forEach var="menu" items="${menuList}">
+                            <c:if test="${menu.PId==50}">
+                                <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
                             </c:if>
-                        </dl>
-                    </c:forEach>
-                </shiro:hasRole>
+                            <dl class="layui-nav-child">
+                                <c:if test="${menu.PId==5050 }">
+                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
+                                            class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                                </c:if>
+                            </dl>
+                        </c:forEach>
+                    </li>
+                </shiro:hasAnyRoles>
             </ul>
         </div>
     </div>

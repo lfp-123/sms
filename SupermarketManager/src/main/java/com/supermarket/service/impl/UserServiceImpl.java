@@ -59,10 +59,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Set<String> selectRolesByUsername(String username) {
-		Set<String> strings = userDao.selectRolesByUsername(username);
-		for (String string : strings) {
-			System.out.println(string);
-		}
 		return userDao.selectRolesByUsername(username);
 	}
 }

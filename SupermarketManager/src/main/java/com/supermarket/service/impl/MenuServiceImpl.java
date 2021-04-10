@@ -29,4 +29,9 @@ public class MenuServiceImpl implements MenuService {
 	public List<Menu> findByParentIdAndRoleId(Integer parentId) {
 		return menuDao.findByParentIdAndRoleId(parentId);
 	}
+
+	@Override
+	public List<Menu> allMenuList() {
+		return menuDao.allMenuList();
+	}
 }

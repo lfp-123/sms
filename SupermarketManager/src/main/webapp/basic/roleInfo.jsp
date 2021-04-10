@@ -125,96 +125,6 @@
                         return false;
                     }
                 });
-            } else if (obj.event === 'sq') {
-                //修改角色
-                layer.open({
-                    type: 1
-                    , anim: 5
-                    , title: "授权"
-                    , area: ['600px', '500px']
-                    , resize: false
-                    , offset: '100px'
-                    , shade: 0
-                    , content: $("#treeDemo", function () {
-                        //加载tree
-                        let setting = {
-                            data: {
-                                simpleData: {
-                                    enable: true
-                                }
-                            },
-                            //复选框加载 chkboxType 父节点和叶子节点联动
-                            check: {
-                                enable: true,
-                                chkStyle: "checkbox",    //复选框
-                                chkboxType: {
-                                    "Y": "ps",
-                                    "N": "ps"
-                                }
-                            },
-                            //回调函数
-                            callback: {
-                                onCheck: onCheck
-                            }
-                        };
-
-                        //执行回调函数 这里没什么用 但必须加 不然报错
-                        function onCheck(e, treeId, treeNode) {
-                            let treeObj = $.fn.zTree.getZTreeObj("treeDemo"),
-                                nodes = treeObj.getCheckedNodes(true),
-                                v = "";
-                            for (let i = 0; i < nodes.length; i++) {
-                                v += nodes[i].name + ",";
-                                console.log(nodes[i].id + "," + nodes[i].name); //获取选中节点的值
-                            }
-                        }
-
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/menu/loadMenuInfo.do?d_id=1&roleId=" + data.id,
-                            dataType: 'json',
-                            type: 'post',
-                            success: function (result) {
-                                let treeObj = $.fn.zTree.init($("#treeDemo"), setting, result);
-                                treeObj.expandAll(true);
-                            }
-                        });
-                    })
-                    , btn: '保存'
-                    , btnAlign: 'r'
-                    , closeBtn: 1
-                    , yes: function (e, treeId, treeNode) {
-                        //获取到所有被选中的节点  专数组传到后台
-                        let _list = [];
-                        let treeObj = $.fn.zTree.getZTreeObj("treeDemo"),
-                            nodes = treeObj.getCheckedNodes(true),
-                            v = "";
-                        for (let i = 0; i < nodes.length; i++) {
-                            v += nodes[i].name + ",";
-                            console.log(nodes[i].id + "," + nodes[i].name); //获取选中节点的值
-                            _list[i] = nodes[i].id;
-                        }
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/menu/save.do?roleId=" + data.id,
-                            data: {"nodes": _list},
-                            dataType: "json",
-                            type: "POST",
-                            traditional: true,
-                            success: function (result) {
-                                if (result.success) {
-                                    layer.closeAll();
-                                    layer.msg("保存成功", {icon: 6});
-                                    setTimeout("refreshPage()", 1000);
-                                } else {
-                                    layer.msg("保存失败", {icon: 5});
-                                }
-                            }
-                        });
-                    }
-                    , cancel: function (index, layero) {
-                        setTimeout("refreshPage()", 100);
-                        return false;
-                    }
-                });
             }
         });
     });
@@ -236,7 +146,6 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="sq">授权</a>
 </script>
 <script type="text/javascript">
     layui.use('layer', function () {

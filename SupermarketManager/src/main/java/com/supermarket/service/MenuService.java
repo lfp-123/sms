@@ -16,4 +16,11 @@ public interface MenuService {
      * 根据p_id查询所有菜单
      */
     List<Menu> findByParentIdAndRoleId(Integer parentId);
+
+    /**
+     * 获取所有菜单
+     *
+     * @return 菜单列表
+     */
+    List<Menu> allMenuList();
 }
