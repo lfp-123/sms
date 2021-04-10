@@ -18,6 +18,7 @@ public interface EmployeesDao {
     Integer add(Employees emp);
 
     Integer delete(Integer id);
+
     Integer deletew(Integer id);
 
     Integer update(Employees emp);
@@ -27,9 +28,12 @@ public interface EmployeesDao {
     String findDeptName(Integer deptId);
 
     List<Dept> findAllDept();
+
     Integer updatew(EmployesWork emp);
 
     List<EmployesWork> findAllw(@Param("page") int page, @Param("limit") int limit);
+
     Long counts(Map<String, Object> map);
 
+    Employees findByEmpName(Integer id);
 }

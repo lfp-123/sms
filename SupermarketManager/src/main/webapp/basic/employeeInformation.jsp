@@ -107,7 +107,7 @@
                     type: 1
                     , anim: 5
                     , title: "修改员工"
-                    , area: ['1000px', '1000px']
+                    , area: ['1000px', '800px']
                     , resize: false
                     , offset: '0px'
                     , shade: 0

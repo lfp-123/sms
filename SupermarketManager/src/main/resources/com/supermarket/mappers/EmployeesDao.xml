@@ -19,6 +19,9 @@
     </resultMap>
 
     <select id="findByEmpId" resultMap="EmpMap" parameterType="Integer">
+        select * from sm_employees where emp_id=#{id}
+    </select>
+
     <resultMap id="EmpMapw" type="com.supermarket.entity.EmployesWork">
         <id column="employ_id" jdbcType="INTEGER" property="employId"/>
         <result column="out_work_days" jdbcType="VARCHAR" property="outWorkDays"/>
@@ -26,7 +29,8 @@
         <result column="leave_days" jdbcType="VARCHAR" property="leaveDays"/>
         <result column="dept" jdbcType="INTEGER" property="dept"/>
     </resultMap>
-    <select id="findByempName"  resultMap="EmpMap" parameterType="Integer">
+
+    <select id="findByEmpName"  resultMap="EmpMap" parameterType="Integer">
 			select * from sm_employees where emp_id=#{id}
 	</select>
 

@@ -69,7 +69,12 @@ public class EmpServiceImpl implements EmpService {
 		return empDao.findAllw(page,limit);
 	}
 
-	@Override
+    @Override
+    public Long counts(Map<String, Object> map) {
+        return null;
+    }
+
+    @Override
 	public Integer updatew(EmployesWork role) {
 		return null;
 	}
