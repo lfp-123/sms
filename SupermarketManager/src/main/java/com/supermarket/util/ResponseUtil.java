@@ -18,7 +18,11 @@ public class ResponseUtil {
 
 	public static Map<String, Object> resultFye(Integer page, Integer limit) {
 		Map<String, Object> map = new HashMap<>(2);
-		map.put("page", page * 10 - 10);
+		if(page==null || page.equals("")){
+			map.put("page",0);
+		}else {
+			map.put("page", page * 10 - 10);
+		}
 		map.put("limit", limit);
 		return map;
 	}

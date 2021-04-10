@@ -2,6 +2,7 @@ package com.supermarket.service.impl;
 
 import com.supermarket.dao.EmployeesDao;
 import com.supermarket.entity.Employees;
+import com.supermarket.entity.EmployesWork;
 import com.supermarket.service.EmpService;
 import org.springframework.stereotype.Service;
 
@@ -43,9 +44,29 @@ public class EmpServiceImpl implements EmpService {
 	public Integer delete(Integer id) {
 		return null;
 	}
+	public Integer deletew(Integer id) {
+		return null;
+	}
 
 	@Override
 	public Integer update(Employees emp) {
 		return null;
+	}
+
+	@Override
+	public Integer updatew(EmployesWork role) {
+		return null;
+	}
+
+	@Override
+	public List<EmployesWork> findAllw(int page, int limit) {
+		if(page==1){
+			page=0;
+		}
+		return empDao.findAllw(page,limit);
+	}
+	@Override
+	public Long counts(Map<String, Object> map) {
+		return empDao.count(map);
 	}
 }

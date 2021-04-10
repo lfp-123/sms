@@ -3,6 +3,7 @@ package com.supermarket.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.supermarket.entity.Employees;
+import com.supermarket.entity.EmployesWork;
 import com.supermarket.service.EmpService;
 import com.supermarket.util.ResponseUtil;
 import org.springframework.stereotype.Controller;
@@ -65,10 +66,27 @@ public class EmpController {
     }
 
     @ResponseBody
+    @RequestMapping("/deletew")
+    public Map<String, Object> deletew(@RequestParam(value = "id", required = false) Integer id) {
+        Map<String, Object> result = new HashMap<>(2);
+        empService.delete(id);
+        result.put("success", true);
+        return result;
+    }
+
+    @ResponseBody
     @RequestMapping("/update")
     public Map<String, Object> update(Employees emp) {
         Map<String, Object> result = new HashMap<>(2);
         empService.update(emp);
+        result.put("success", true);
+        return result;
+    }
+    @ResponseBody
+    @RequestMapping("/updatew")
+    public Map<String, Object> updatew(EmployesWork emp) {
+        Map<String, Object> result = new HashMap<>(2);
+        empService.updatew(emp);
         result.put("success", true);
         return result;
     }
@@ -86,5 +104,17 @@ public class EmpController {
         }
         ResponseUtil.write(response, jsonArray);
         return null;
+    }
+
+    @ResponseBody
+    @RequestMapping("/empWorkList")
+    public Map<String, Object> goodsList(@RequestParam(value = "page", required = false) Integer page,
+                                         @RequestParam(value = "limit", required = false) Integer limit) {
+        Map<String, Object> result = ResponseUtil.resultFye(page, limit);
+        System.out.println("page:"+page+"limit: "+limit);
+        result.put("state", 2);
+        List<EmployesWork> all = empService.findAllw(page, limit);
+        Long count = empService.counts(result);
+        return ResponseUtil.result(all, count);
     }
 }

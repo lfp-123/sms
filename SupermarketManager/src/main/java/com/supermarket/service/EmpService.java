@@ -1,6 +1,7 @@
 package com.supermarket.service;
 
 import com.supermarket.entity.Employees;
+import com.supermarket.entity.EmployesWork;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ public interface EmpService {
     Employees findByRoleName(Integer id);
 
     List<Employees> findAll(Map<String, Object> map);
+
+
 
     Long count(Map<String, Object> map);
 
@@ -19,4 +22,9 @@ public interface EmpService {
     Integer delete(Integer id);
 
     Integer update(Employees role);
+    Integer updatew(EmployesWork role);
+
+    List<EmployesWork> findAllw(int page, int limit) ;
+
+    Long counts(Map<String, Object> map);
 }
