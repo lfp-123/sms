@@ -47,7 +47,7 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping("/save")
-    public Map<String, Object> save(Goods goods) throws Exception {
+    public Map<String, Object> save(Goods goods) {
         Map<String, Object> result = new HashMap<>(4);
         if (goodsService.isEchoe(goods.getName()) != null) {
             result.put("success", false);
@@ -61,7 +61,7 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public Map<String, Object> update(Goods goods) throws Exception {
+    public Map<String, Object> update(Goods goods) {
         Map<String, Object> result = new HashMap<>(4);
         Goods goodsNumber = goodsService.findById(goods.getId());
         if (!goodsNumber.getNumber().equals(goods.getNumbers())) {
@@ -93,7 +93,7 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) throws Exception {
+    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(4);
         Goods goods = new Goods();
         goods.setState(0);

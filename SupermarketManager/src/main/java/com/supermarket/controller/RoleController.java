@@ -19,6 +19,9 @@ import com.supermarket.entity.Role;
 import com.supermarket.service.RoleService;
 import com.supermarket.util.ResponseUtil;
 
+/**
+ * ½ÇÉ«
+ */
 @Controller
 @RequestMapping("/role")
 public class RoleController {
@@ -44,7 +47,7 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public Map<String, Object> add(Role role) throws Exception {
+    public Map<String, Object> add(Role role) {
         Map<String, Object> result = new HashMap<>(2);
         Role roleName = roleService.findRepeat(role.getRoleName());
         if (roleName == null) {
@@ -59,7 +62,7 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) throws Exception {
+    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(2);
         roleService.delete(id);
         result.put("success", true);
@@ -68,7 +71,7 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public Map<String, Object> update(Role role) throws Exception {
+    public Map<String, Object> update(Role role) {
         Map<String, Object> result = new HashMap<>(2);
         roleService.update(role);
         result.put("success", true);

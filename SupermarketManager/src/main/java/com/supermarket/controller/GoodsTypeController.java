@@ -34,7 +34,7 @@ public class GoodsTypeController {
      */
     @ResponseBody
     @RequestMapping("/loadGoodstypeInfo")
-    public String loadGoodstypeInfo() {
+    public String loadGoodsTypeInfo() {
         return getAllMenuByParentId(-1).toString();
     }
 
@@ -65,7 +65,7 @@ public class GoodsTypeController {
             // 节点名称
             jsonObject.addProperty("name", goodsType.getName());
             // 节点名称
-            jsonObject.addProperty("p_id", goodsType.getPId());
+            jsonObject.addProperty("pId", goodsType.getPId());
             // 节点名称
             jsonObject.addProperty("states", goodsType.getState());
             jsonObject.addProperty("spread", true);
@@ -98,7 +98,7 @@ public class GoodsTypeController {
 
     @ResponseBody
     @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) throws Exception {
+    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(2);
         if (goodsTypeService.findByPid(id) != null) {
             result.put("success", false);
@@ -115,7 +115,7 @@ public class GoodsTypeController {
 
     @ResponseBody
     @RequestMapping("/update")
-    public Map<String, Object> update(GoodsType goodsType) throws Exception {
+    public Map<String, Object> update(GoodsType goodsType) {
         Map<String, Object> result = new HashMap<>(2);
         GoodsType goodsTypes = goodsTypeService.isEchoes(goodsType.getName());
         if (goodsTypes == null) {
@@ -135,7 +135,7 @@ public class GoodsTypeController {
 
     @ResponseBody
     @RequestMapping("/save")
-    public Map<String, Object> save(GoodsType goodsType) throws Exception {
+    public Map<String, Object> save(GoodsType goodsType) {
         Map<String, Object> result = new HashMap<>(2);
         GoodsType goodsTypes = goodsTypeService.findById(goodsType.getId());
         if (goodsTypeService.isEchoes(goodsType.getName()) != null) {
@@ -161,13 +161,11 @@ public class GoodsTypeController {
 
     @ResponseBody
     @RequestMapping("/typelistSel")
-    public Map<String, Object> typelistSel() {
+    public Map<String, Object> typeListSel() {
         Map<String, Object> result = new HashMap<>(2);
         List<GoodsType> typeList = goodsTypeService.findAll(null);
         result.put("typeList", typeList);
         result.put("success", true);
         return result;
     }
-
-
 }

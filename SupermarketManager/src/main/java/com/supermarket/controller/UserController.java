@@ -48,10 +48,10 @@ public class UserController {
             map.put("errorInfo", "—È÷§¬Î ‰»Î¥ÌŒÛ!");
             return map;
         }
-        Subject subect = SecurityUtils.getSubject();
+        Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
         try {
-            subect.login(token);
+            subject.login(token);
             String userName = (String) SecurityUtils.getSubject().getPrincipal();
             User currentUser = userService.findByUserName(userName);
             UserRole userRole = userRoleService.findAll(currentUser.getUserName());

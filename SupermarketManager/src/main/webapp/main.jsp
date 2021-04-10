@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,61 +63,81 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <c:forEach var="menu" items="${menuList}">
-                        <c:if test="${menu.PId==10}">
-                            <a class="" href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}
-                            </a>
-                        </c:if>
-                        <dl class="layui-nav-child">
-                            <c:if test="${menu.PId==1010}">
-                                <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url }"><i
-                                        class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                <shiro:hasAnyRoles name="admin,hr">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <c:forEach var="menu" items="${menuList}">
+                            <c:if test="${menu.PId==10}">
+                                <a class="" href="javascript:"><i
+                                        class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}
+                                </a>
                             </c:if>
-                        </dl>
-                    </c:forEach>
-                </li>
-                <li class="layui-nav-item">
+                            <dl class="layui-nav-child">
+                                <c:if test="${menu.PId==1010}">
+                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url }"><i
+                                            class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                                </c:if>
+                            </dl>
+                        </c:forEach>
+                    </li>
+                </shiro:hasAnyRoles>
+                <shiro:hasAnyRoles name="admin,financial">
+                    <li class="layui-nav-item">
+                        <c:forEach var="menu" items="${menuList}">
+                            <c:if test="${menu.PId==20}">
+                                <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
+                            </c:if>
+                            <dl class="layui-nav-child">
+                                <c:if test="${menu.PId==2020}">
+                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
+                                            class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                                </c:if>
+                            </dl>
+                        </c:forEach>
+                    </li>
+                </shiro:hasAnyRoles>
+                <shiro:hasAnyRoles name="admin,buyer">
+                    <li class="layui-nav-item">
+                        <c:forEach var="menu" items="${menuList}">
+                            <c:if test="${menu.PId==30}">
+                                <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
+                            </c:if>
+                            <dl class="layui-nav-child">
+                                <c:if test="${menu.PId==3030 }">
+                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}">
+                                        <i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                                </c:if>
+                            </dl>
+                        </c:forEach>
+                    </li>
+                </shiro:hasAnyRoles>
+                <shiro:hasAnyRoles name="admin,salesman">
+                    <li class="layui-nav-item">
+                        <c:forEach var="menu" items="${menuList}">
+                            <c:if test="${menu.PId==40}">
+                                <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
+                            </c:if>
+                            <dl class="layui-nav-child">
+                                <c:if test="${menu.PId==4040 }">
+                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
+                                            class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
+                                </c:if>
+                            </dl>
+                        </c:forEach>
+                    </li>
+                </shiro:hasAnyRoles>
+                <shiro:hasRole name="admin">
                     <c:forEach var="menu" items="${menuList}">
-                        <c:if test="${menu.PId==20}">
+                        <c:if test="${menu.PId==50}">
                             <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
                         </c:if>
                         <dl class="layui-nav-child">
-                            <c:if test="${menu.PId==2020}">
+                            <c:if test="${menu.PId==5050 }">
                                 <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
                                         class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
                             </c:if>
                         </dl>
                     </c:forEach>
-                </li>
-
-                <li class="layui-nav-item">
-                    <c:forEach var="menu" items="${menuList}">
-                        <c:if test="${menu.PId==30}">
-                            <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
-                        </c:if>
-                        <dl class="layui-nav-child">
-                            <c:if test="${menu.PId==3030 }">
-                                <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
-                                        class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
-                            </c:if>
-                        </dl>
-                    </c:forEach>
-                </li>
-
-                <li class="layui-nav-item">
-                    <c:forEach var="menu" items="${menuList}">
-                        <c:if test="${menu.PId==40}">
-                            <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
-                        </c:if>
-                        <dl class="layui-nav-child">
-                            <c:if test="${menu.PId==4040 }">
-                                <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
-                                        class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
-                            </c:if>
-                        </dl>
-                    </c:forEach>
-                </li>
+                </shiro:hasRole>
             </ul>
         </div>
     </div>
