@@ -16,17 +16,16 @@
         //数据表格显示
         table.render({
             elem: '#demo'
-            , url: '${pageContext.request.contextPath}/user/userList.do' //数据接口
+            , url: '${pageContext.request.contextPath}/emp//empWorkList.do' //数据接口
             , cellMinWidth: 80
             , page: true //开启分页
             , id: 'testReload'
             , cols: [[ //表头
-                {field: 'id', title: 'ID', align: 'center', sort: true, fixed: 'left'}
-                , {field: 'userName', align: 'center', title: '用户名'}
-                , {field: 'trueName', align: 'center', title: '真实姓名'}
-                , {field: 'number', align: 'center', title: '联系电话'}
-                , {field: 'address', align: 'center', title: '联系地址'}
-                , {field: 'roleName', align: 'center', title: '角色'}
+                {field: 'employId', title: '员工ID', align: 'center', sort: true, fixed: 'left'}
+                , {field: 'name', align: 'center', title: '员工姓名'}
+                , {field: 'workDays', align: 'center', title: '打卡天数'}
+                , {field: 'outWorkDays', align: 'center', title: '加班天数'}
+                , {field: 'leaveDays', align: 'center', title: '请假天数'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
@@ -62,9 +61,9 @@
                 //删除用户
                 layer.confirm('真的删除该用户吗？', function (index) {
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/user/delete.do",
+                        url: "${pageContext.request.contextPath}/emp/deletew.do",
                         type: "POST",
-                        data: {"id": data.id},
+                        data: {"id": data.employId},
                         dataType: "json",
                         success: function (data) {
                             if (data.success) {
@@ -85,13 +84,13 @@
                 layer.open({
                     type: 1
                     , anim: 5
-                    , title: "修改用户"
+                    , title: "考勤修改"
                     , area: ['700px', '520px']
                     , resize: false
                     , offset: '100px'
                     , shade: 0
                     , content: $("#add", function () {
-                        $.post("${pageContext.request.contextPath}/role/rolefind.do", function (result) {
+                        $.post("${pageContext.request.contextPath}/emp/updatew.do", function (result) {
                             let deptSelect = $("#roleId");
                             let arr = eval('(' + result + ')');
                             for (let i = 0; i < arr.length; i++) {
@@ -103,62 +102,56 @@
                             $("#roleId").val(data.roleId);
                             form.render("select");
                         });
-                        $("#id").val(data.id);
-                        $("#userName").val(data.userName);
-                        $("#password").val(data.password);
-                        $("#confirmPassword").val(data.password)
-                        $("#number").val(data.number);
-                        $("#address").val(data.address);
-                        $("#trueName").val(data.trueName);
-                        $("#userName").attr("disabled", true);
+                        $("#employId").val(data.employId);
+                        $("#name").val(data.name);
+                        $("#workDays").val(data.workDays);
+                        $("#outWorkDays").val(data.outWorkDays);
+                        $("#leaveDays").val(data.leaveDays);
+                        $("#name").attr("disabled", true);
+                        $("#employId").attr("disabled", true);
                         form.render("radio");
                     })
                     , btn: '保存'
                     , btnAlign: 'r'
                     , closeBtn: 1
                     , yes: function () {
-                        let id = $("#id").val();
-                        let userName = $("#userName").val();
-                        let password = $("#password").val();
-                        let confirmPassword = $("#confirmPassword").val();
-                        let number = $("#number").val();
-                        let address = $("#address").val();
-                        let trueName = $("#trueName").val();
-                        let roleId = $('#roleId option:selected').val();
-                        let r = /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/;
-
-                        if (userName == null || userName === '') {
-                            layer.msg('用户名不能为空！', {icon: 5});
-                            return false;
-                        }
-                        if (password == null || password === '') {
-                            layer.msg('密码不能为空！', {icon: 5});
-                            return false;
-                        }
-                        if (confirmPassword == null || confirmPassword === '') {
-                            layer.msg('确认密码不能为空！', {icon: 5});
-                            return false;
-                        }
-                        if (confirmPassword !== password) {
-                            layer.msg('确认密码有误！', {icon: 5});
-                            return false;
-                        }
-                        if (trueName == null || trueName === '') {
-                            layer.msg('真实姓名不能为空！', {icon: 5});
-                            return false;
-                        }
-                        if (roleId == null || roleId === '') {
-                            layer.msg('角色不能为空！', {icon: 5});
-                            return false;
-                        }
-                        $.post("${pageContext.request.contextPath}/user/update.do", {
-                            id: id,
-                            userName: userName,
-                            password: password,
-                            trueName: trueName,
-                            address: address,
-                            number: number,
-                            roleId: roleId
+                        let employId = $("#employId").val();
+                        let name = $("#name").val();
+                        let workDays = $("#workDays").val();
+                        let outWorkDays = $("#outWorkDays").val();
+                        let leaveDays = $("#leaveDays").val();
+                        //
+                        // if (userName == null || userName === '') {
+                        //     layer.msg('用户名不能为空！', {icon: 5});
+                        //     return false;
+                        // }
+                        // if (password == null || password === '') {
+                        //     layer.msg('密码不能为空！', {icon: 5});
+                        //     return false;
+                        // }
+                        // if (confirmPassword == null || confirmPassword === '') {
+                        //     layer.msg('确认密码不能为空！', {icon: 5});
+                        //     return false;
+                        // }
+                        // if (confirmPassword !== password) {
+                        //     layer.msg('确认密码有误！', {icon: 5});
+                        //     return false;
+                        // }
+                        // if (trueName == null || trueName === '') {
+                        //     layer.msg('真实姓名不能为空！', {icon: 5});
+                        //     return false;
+                        // }
+                        // if (roleId == null || roleId === '') {
+                        //     layer.msg('角色不能为空！', {icon: 5});
+                        //     return false;
+                        // }
+                        //编辑角色在这里修改就行了
+                        $.post("${pageContext.request.contextPath}/user/updatew.do", {
+                            employId: employId,
+                            name: name,
+                            workDays: workDays,
+                            outWorkDays: outWorkDays,
+                            leaveDays: leaveDays,
                         }, function (result) {
                             if (result.success) {
                                 layer.closeAll();
@@ -166,35 +159,6 @@
                                 setTimeout("refreshPage()", 1000);
                             } else {
                                 layer.msg(result.errorInfo, {icon: 5});
-                            }
-                        });
-
-                    }
-                    , cancel: function (index, layero) {
-                        setTimeout("refreshPage()", 100);
-                        return false;
-                    }
-                });
-            } else if (obj.event === 'cz') {
-                //修改用户
-                layer.open({
-                    type: 1
-                    , anim: 5
-                    , title: "重置密码"
-                    , area: ['500px', '180px']
-                    , resize: false
-                    , offset: '100px'
-                    , shade: 0
-                    , content: '<div style="padding: 30px;">是否要重置密码？重置后为"123"</div>'
-                    , btn: '确认'
-                    , btnAlign: 'r'
-                    , closeBtn: 2
-                    , yes: function () {
-                        $.post("${pageContext.request.contextPath}/user/reset.do", {id: data.id}, function (result) {
-                            if (result.success) {
-                                layer.closeAll();
-                                layer.msg('密码重置成功！', {icon: 1});
-                                setTimeout("refreshPage()", 1000);
                             }
                         });
 
@@ -225,7 +189,6 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="cz">重置密码</a>
 </script>
 <script type="text/javascript">
     layui.use(['layer', 'form'], function () {
@@ -249,7 +212,7 @@
                 layer.open({
                     type: 1
                     , anim: 5
-                    , title: "添加商品"
+                    , title: "考勤添加"
                     , area: ['700px', '600px']
                     , resize: false
                     , shade: 0
@@ -258,7 +221,7 @@
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中
                     , yes: function () {
-                        let userName = $("#userName").val();
+                        let userName = $("#name").val();
                         let password = $("#password").val();
                         let confirmPassword = $("#confirmPassword").val();
                         let trueName = $("#trueName").val();
