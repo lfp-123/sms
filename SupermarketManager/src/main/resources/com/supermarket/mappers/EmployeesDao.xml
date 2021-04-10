@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.supermarket.dao.EmployeesDao">
+    <resultMap id="EmpMap" type="com.supermarket.entity.Employees">
+        <id column="emp_id" jdbcType="INTEGER" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="emp_native_place" jdbcType="VARCHAR" property="empNativePlace"/>
+        <result column="emp_addr" jdbcType="VARCHAR" property="empAddr"/>
+        <result column="emp_phone" jdbcType="INTEGER" property="empPhone"/>
+        <result column="emp_identity" jdbcType="INTEGER" property="empIdentity"/>
+        <result column="emp_sex" jdbcType="INTEGER" property="empSex"/>
+        <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="emp_describe" jdbcType="VARCHAR" property="empDescribe"/>
+    </resultMap>
+
+    <select id="findByempName"  resultMap="EmpMap" parameterType="Integer">
+			select * from sm_employees where emp_id=#{id}
+	</select>
+
+    <select id="findAll" parameterType="Map" resultMap="EmpMap">
+        SELECT * FROM sm_employees
+        <where>
+            <if test="empName!=null and empName!='' ">
+                and emp_name like "%"#{empName}"%"
+            </if>
+        </where>
+        <if test="page!=null and limit!=null">
+            limit #{page},#{limit}
+        </if>
+    </select>
+
+    <select id="count" parameterType="Map" resultType="Long">
+        select count(*) from sm_employees
+        <where>
+            <if test="emp_name != null and emp_name!='' ">
+                and emp_name like "%"#{empName}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="findRepeat"  resultMap="EmpMap" parameterType="String">
+			select * from sm_employees where emp_name = #{empName}
+	</select>
+
+    <insert id="add"  parameterType="Employees">
+		insert into sm_employees values(null,#{empName},#{empRemark})
+	</insert>
+
+    <delete id="delete" parameterType="Integer">
+		delete from sm_employees where emp_id=#{id}
+	</delete>
+
+    <update id="update" parameterType="Employees">
+        update  sm_employees
+        <set>
+            <if test="empName!=null and empName!=''">
+                emp_name=#{empName},
+            </if>
+            <if test="emp_describe!=null and emp_describe!=''">
+                emp_describe=#{emp_describe},
+            </if>
+        </set>
+        where emp_id=#{id}
+    </update>
+</mapper>

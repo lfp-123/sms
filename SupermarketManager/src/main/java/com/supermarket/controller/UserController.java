@@ -89,7 +89,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/add")
-    public Map<String, Object> add(User user) throws Exception {
+    public Map<String, Object> add(User user) {
         Map<String, Object> result = new HashMap<>(2);
         User userName = userService.findByUserName(user.getUserName());
         if (userName == null) {
@@ -113,7 +113,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/delete")
-    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) throws Exception {
+    public Map<String, Object> delete(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(2);
         userService.delete(id);
         userRoleService.delete(id);
@@ -127,7 +127,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/update")
-    public Map<String, Object> update(User user) throws Exception {
+    public Map<String, Object> update(User user) {
         Map<String, Object> result = new HashMap<>(2);
         UserRole userRole = userRoleService.findAll(user.getUserName());
         if (userRole.getRoleId().equals(user.getRoleId())) {
@@ -148,7 +148,7 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/reset")
-    public Map<String, Object> reset(@RequestParam(value = "id", required = false) Integer id) throws Exception {
+    public Map<String, Object> reset(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(2);
         userService.updateReset(id);
         result.put("success", true);

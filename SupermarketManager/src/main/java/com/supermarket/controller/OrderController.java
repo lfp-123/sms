@@ -25,7 +25,7 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping("/genCode")
-    public String genCode() throws Exception {
+    public String genCode() {
         StringBuilder code = new StringBuilder("JH");
         code.append(DateUtil.getCurrentDateStr());
         Order order = orderService.getTodayMaxNumber();

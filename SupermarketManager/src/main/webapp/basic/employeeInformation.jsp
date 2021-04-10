@@ -10,7 +10,7 @@
             type="text/javascript"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/zTree_v3/css/zTreeStyle/zTreeStyle.css"
           type="text/css">
-    <title>角色信息</title>
+    <title>员工信息</title>
 </head>
 <script type="text/javascript">
     layui.use(['table', 'form'], function () {
@@ -20,14 +20,16 @@
         //数据表格显示
         table.render({
             elem: '#demo'
-            , url: '${pageContext.request.contextPath}/role/roleList.do' //数据接口
+            , url: '${pageContext.request.contextPath}/emp/empList.do' //数据接口
             , cellMinWidth: 80
             , page: true //开启分页
             , id: 'testReload'
             , cols: [[ //表头
                 {field: 'id', title: 'ID', align: 'center', sort: true, fixed: 'left'}
-                , {field: 'roleName', align: 'center', title: '角色'}
-                , {field: 'roleRemark', align: 'center', title: '备注'}
+                , {field: 'empName', align: 'center', title: '姓名'}
+                , {field: 'empNativePlace', align: 'center', title: '籍贯'}
+                , {field: 'empAddr', align: 'center', title: '地址'}
+                , {field: 'empPhone', align: 'center', title: '电话'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
         });
@@ -60,10 +62,10 @@
         table.on('tool(test)', function (obj) {
             let data = obj.data;
             if (obj.event === 'del') {
-                //删除角色
-                layer.confirm('真的删除该角色吗？', function (index) {
+                //删除员工
+                layer.confirm('真的删除该员工吗？', function (index) {
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/role/delete.do",
+                        url: "${pageContext.request.contextPath}/emp/delete.do",
                         type: "POST",
                         data: {"id": data.id},
                         dataType: "json",
@@ -82,11 +84,11 @@
                     });
                 });
             } else if (obj.event === 'edit') {
-                //修改角色
+                //修改员工
                 layer.open({
                     type: 1
                     , anim: 5
-                    , title: "修改角色"
+                    , title: "修改员工"
                     , area: ['500px', '320px']
                     , resize: false
                     , offset: '100px'
@@ -105,7 +107,7 @@
                         let roleName = $("#roleName").val();
                         let roleRemark = $("#roleRemark").val();
 
-                        $.post("${pageContext.request.contextPath}/role/update.do", {
+                        $.post("${pageContext.request.contextPath}/emp/update.do", {
                             id: id,
                             roleName: roleName,
                             roleRemark: roleRemark
@@ -131,16 +133,16 @@
 </script>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>角色管理</legend>
+    <legend>员工管理</legend>
 </fieldset>
 <div class="demoTable">
     <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-        角色名称：
+        员工名称：
         <div class="layui-inline">
             <input class="layui-input" name="roleName" id="demoReload" autocomplete="off">
         </div>
         <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-        <button data-method="offset" data-type="auto" class="layui-btn"><i class="layui-icon">&#xe654;</i>添加角色</button>
+        <button data-method="offset" data-type="auto" class="layui-btn"><i class="layui-icon">&#xe654;</i>添加员工</button>
     </div>
 </div>
 <script type="text/html" id="barDemo">
@@ -157,7 +159,7 @@
                 layer.open({
                     type: 1
                     , anim: 5
-                    , title: "添加角色"
+                    , title: "添加员工"
                     , area: ['500px', '320px']
                     , resize: false
                     , shade: 0
@@ -169,16 +171,16 @@
                         let roleName = $("#roleName").val();
                         let roleRemark = $("#roleRemark").val();
                         if (roleName == null || roleName === '') {
-                            layer.msg('角色名不能为空！', {icon: 5});
+                            layer.msg('员工名不能为空！', {icon: 5});
                             return false;
                         }
-                        $.post("${pageContext.request.contextPath}/role/add.do", {
+                        $.post("${pageContext.request.contextPath}/emp/add.do", {
                             roleName: roleName,
                             roleRemark: roleRemark
                         }, function (result) {
                             if (result.success) {
                                 layer.closeAll();
-                                layer.msg('角色添加成功！', {icon: 1});
+                                layer.msg('员工添加成功！', {icon: 1});
                                 setTimeout("refreshPage()", 1000);
                             } else {
                                 layer.msg(result.errorInfo, {icon: 5});
@@ -207,12 +209,12 @@
     <div class="layui-form-item" style="padding: 15px;">
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">角色名</label>
+        <label class="layui-form-label" style="color: red;">员工名</label>
         <div class="layui-input-block">
             <input type="hidden" name="id" id="id" style="width: 15px;" lay-verify="title" autocomplete="off"
                    class="layui-input">
             <input type="text" name="roleName" id="roleName" style="width: 250px;" lay-verify="title" autocomplete="off"
-                   placeholder="请输入角色名" class="layui-input">
+                   placeholder="请输入员工名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
