@@ -21,16 +21,6 @@
         let demo = document.getElementById('iframe_aa');
         demo.style.height = he + 'px';
     }
-
-    function exit() {
-        layer.confirm('确定要安全退出吗?', {
-            title: '提示',
-            btn: ['确定', '取消']
-        }, function () {
-            layer.closeAll();
-            window.location.href = "${pageContext.request.contextPath}/user/logout.do";
-        });
-    }
 </script>
 
 <script type="text/javascript">
@@ -54,7 +44,8 @@
                 <dl class="layui-nav-child">
                     <dd><a href="${pageContext.request.contextPath}/basic/passwd.jsp" target="iframe_a"><i
                             class="layui-icon">&#xe673;</i>&nbsp;密码修改</a></dd>
-                    <dd><a href="javascript:exit()"><i class="layui-icon">&#xe65c;</i>&nbsp;安全退出</a></dd>
+                    <dd><a href="${pageContext.request.contextPath}/user/logout.do"><i class="layui-icon">&#xe65c;</i>&nbsp;退出</a>
+                    </dd>
                 </dl>
             </li>
         </ul>
@@ -73,7 +64,7 @@
                             </c:if>
                             <dl class="layui-nav-child">
                                 <c:if test="${menu.PId==1010}">
-                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url }"><i
+                                    <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
                                             class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
                                 </c:if>
                             </dl>
@@ -102,7 +93,7 @@
                                 <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
                             </c:if>
                             <dl class="layui-nav-child">
-                                <c:if test="${menu.PId==3030 }">
+                                <c:if test="${menu.PId==3030}">
                                     <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}">
                                         <i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
                                 </c:if>
@@ -117,7 +108,7 @@
                                 <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
                             </c:if>
                             <dl class="layui-nav-child">
-                                <c:if test="${menu.PId==4040 }">
+                                <c:if test="${menu.PId==4040}">
                                     <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
                                             class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
                                 </c:if>
@@ -132,7 +123,7 @@
                                 <a href="javascript:"><i class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a>
                             </c:if>
                             <dl class="layui-nav-child">
-                                <c:if test="${menu.PId==5050 }">
+                                <c:if test="${menu.PId==5050}">
                                     <dd><a target="iframe_a" href="${pageContext.request.contextPath}${menu.url}"><i
                                             class="icon iconfont">${menu.icon}</i>&nbsp;${menu.name}</a></dd>
                                 </c:if>
