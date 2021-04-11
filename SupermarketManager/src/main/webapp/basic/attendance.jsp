@@ -90,18 +90,6 @@
                     , offset: '100px'
                     , shade: 0
                     , content: $("#add", function () {
-                        $.post("${pageContext.request.contextPath}/emp/updatew.do", function (result) {
-                            let deptSelect = $("#roleId");
-                            let arr = eval('(' + result + ')');
-                            for (let i = 0; i < arr.length; i++) {
-                                let opt = document.createElement("option");
-                                opt.value = arr[i].id;
-                                opt.innerText = arr[i].name;
-                                deptSelect.append(opt);
-                            }
-                            $("#roleId").val(data.roleId);
-                            form.render("select");
-                        });
                         $("#employId").val(data.employId);
                         $("#name").val(data.name);
                         $("#workDays").val(data.workDays);
@@ -120,33 +108,8 @@
                         let workDays = $("#workDays").val();
                         let outWorkDays = $("#outWorkDays").val();
                         let leaveDays = $("#leaveDays").val();
-                        //
-                        // if (userName == null || userName === '') {
-                        //     layer.msg('用户名不能为空！', {icon: 5});
-                        //     return false;
-                        // }
-                        // if (password == null || password === '') {
-                        //     layer.msg('密码不能为空！', {icon: 5});
-                        //     return false;
-                        // }
-                        // if (confirmPassword == null || confirmPassword === '') {
-                        //     layer.msg('确认密码不能为空！', {icon: 5});
-                        //     return false;
-                        // }
-                        // if (confirmPassword !== password) {
-                        //     layer.msg('确认密码有误！', {icon: 5});
-                        //     return false;
-                        // }
-                        // if (trueName == null || trueName === '') {
-                        //     layer.msg('真实姓名不能为空！', {icon: 5});
-                        //     return false;
-                        // }
-                        // if (roleId == null || roleId === '') {
-                        //     layer.msg('角色不能为空！', {icon: 5});
-                        //     return false;
-                        // }
                         //编辑角色在这里修改就行了
-                        $.post("${pageContext.request.contextPath}/user/updatew.do", {
+                        $.post("${pageContext.request.contextPath}/emp/updatew.do", {
                             employId: employId,
                             name: name,
                             workDays: workDays,
@@ -183,7 +146,7 @@
             <input class="layui-input" name="userName" id="demoReload" autocomplete="off">
         </div>
         <button class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-        <button data-method="offset" data-type="auto" class="layui-btn"><i class="layui-icon">&#xe654;</i>添加用户</button>
+<%--        <button data-method="offset" data-type="auto" class="layui-btn"><i class="layui-icon">&#xe654;</i>添加用户</button>--%>
     </div>
 </div>
 <script type="text/html" id="barDemo">
@@ -293,55 +256,38 @@
     <div class="layui-form-item" style="padding: 15px;">
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">用户名</label>
+        <label class="layui-form-label" style="color: red;">员工ID</label>
         <div class="layui-input-block">
-            <input type="hidden" name="id" id="id" style="width: 15px;" lay-verify="title" autocomplete="off"
+            <input type="text" name="employId" id="employId" style="width: 350px;" lay-verify="title" autocomplete="off"
                    class="layui-input">
-            <input type="text" name="userName" id="userName" style="width: 350px;" lay-verify="title" autocomplete="off"
-                   placeholder="请输入用户名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">密码</label>
+        <label class="layui-form-label" style="color: red;">员工姓名</label>
         <div class="layui-input-block">
-            <input type="password" name="password" id="password" style="width: 350px;" lay-verify="title"
-                   autocomplete="off" placeholder="请输入密码" class="layui-input">
+            <input type="text" name="name" id="name" style="width: 350px;" lay-verify="title"
+                   autocomplete="off" placeholder="请输入员工姓名" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">确认密码</label>
+        <label class="layui-form-label" style="color: red;">工作天数</label>
         <div class="layui-input-block">
-            <input type="password" name="confirmPassword" id="confirmPassword" style="width: 350px;" lay-verify="title"
-                   autocomplete="off" placeholder="请输入确认密码" class="layui-input">
+            <input type="text" name="workDays" id="workDays" style="width: 350px;" lay-verify="title" autocomplete="off"
+                   placeholder="请输入工作天数" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">真实姓名</label>
+        <label class="layui-form-label">加班天数</label>
         <div class="layui-input-block">
-            <input type="text" name="trueName" id="trueName" style="width: 350px;" lay-verify="title" autocomplete="off"
-                   placeholder="请输入真实姓名" class="layui-input">
+            <input type="text" name="outWorkDays" id="outWorkDays" style="width: 350px;" lay-verify="title" autocomplete="off"
+                   placeholder="请输入加班天数" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">联系地址</label>
+        <label class="layui-form-label">请假天数</label>
         <div class="layui-input-block">
-            <input type="text" name="address" id="address" style="width: 350px;" lay-verify="title" autocomplete="off"
-                   placeholder="请输入联系地址" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">联系方式</label>
-        <div class="layui-input-block">
-            <input type="text" name="number" id="number" style="width: 350px;" lay-verify="title" autocomplete="off"
-                   placeholder="请输入联系方式" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label" style="color: red;">角色</label>
-        <div class="layui-input-block" style="width: 250px;">
-            <select class="layui-input" name="roleId" id="roleId" lay-verify="required">
-                <option value="">请选择角色</option>
-            </select>
+            <input type="text" name="leaveDays" id="leaveDays" style="width: 350px;" lay-verify="title" autocomplete="off"
+                   placeholder="请输入请假天数" class="layui-input">
         </div>
     </div>
 </form>

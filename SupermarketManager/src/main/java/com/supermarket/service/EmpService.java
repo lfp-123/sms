@@ -19,7 +19,7 @@ public interface EmpService {
     Integer add(Employees role);
 
     Integer delete(Integer id);
-    Integer deletew(Integer id);
+    void deletew(Integer id);
 
     Integer update(Employees role);
 

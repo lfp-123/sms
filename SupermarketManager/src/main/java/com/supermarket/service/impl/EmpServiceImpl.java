@@ -1,6 +1,7 @@
 package com.supermarket.service.impl;
 
 import com.supermarket.dao.EmployeesDao;
+import com.supermarket.entity.Dept;
 import com.supermarket.entity.Employees;
 import com.supermarket.entity.EmployesWork;
 import com.supermarket.service.EmpService;
@@ -15,9 +16,10 @@ public class EmpServiceImpl implements EmpService {
 	@Resource
 	private EmployeesDao empDao;
 
+
 	@Override
-	public Employees findByRoleName(Integer id) {
-		return empDao.findByRoleName(id);
+	public List<Employees> findByEmpName(String empName) {
+		return null;
 	}
 
 	@Override
@@ -44,9 +46,10 @@ public class EmpServiceImpl implements EmpService {
 	public Integer delete(Integer id) {
 		return null;
 	}
-	public Integer deletew(Integer id) {
+
+
+	public void deletew(Integer id) {
 		empDao.deletew(id);
-		return null;
 	}
 
 	@Override
@@ -56,7 +59,8 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public Integer updatew(EmployesWork role) {
-		return null;
+		Integer updatew = empDao.updatew(role);
+		return updatew;
 	}
 
 	@Override
@@ -69,5 +73,20 @@ public class EmpServiceImpl implements EmpService {
 	@Override
 	public Long counts(Map<String, Object> map) {
 		return empDao.count(map);
+	}
+
+	@Override
+	public List<Dept> findAllDept() {
+		return null;
+	}
+
+	@Override
+	public String findDeptName(Integer deptId) {
+		return null;
+	}
+
+	@Override
+	public Integer deleteew(Integer id) {
+		return null;
 	}
 }

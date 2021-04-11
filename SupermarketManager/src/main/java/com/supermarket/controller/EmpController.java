@@ -70,7 +70,7 @@ public class EmpController {
     @RequestMapping("/deletew")
     public Map<String, Object> deletew(@RequestParam(value = "id", required = false) Integer id) {
         Map<String, Object> result = new HashMap<>(2);
-        empService.delete(id);
+        empService.deletew(id);
         System.out.println("Id+"+id);
         result.put("success", true);
         return result;
