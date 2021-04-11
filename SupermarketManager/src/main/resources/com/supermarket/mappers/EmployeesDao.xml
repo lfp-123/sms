@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.supermarket.dao.EmployeesDao">
     <resultMap id="EmpMap" type="com.supermarket.entity.Employees">
-        <id column="emp_id" jdbcType="INTEGER" property="empId"/>
+        <id column="emp_id" jdbcType="BIGINT" property="empId"/>
         <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
         <result column="emp_native_place" jdbcType="VARCHAR" property="empNativePlace"/>
         <result column="emp_addr" jdbcType="VARCHAR" property="empAddr"/>

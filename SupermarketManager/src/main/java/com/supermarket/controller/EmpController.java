@@ -35,7 +35,7 @@ public class EmpController {
         try {
             Long count = empService.count(result);
             if (StringUtil.isNotEmpty(empName)) {
-                return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findByEmpName(empName), empService), count);
+                return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findByEmpName(empName.trim()), empService), count);
             } else {
                 return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findAll(result), empService), count);
             }

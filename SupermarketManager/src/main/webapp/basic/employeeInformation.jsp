@@ -122,7 +122,7 @@
                         $("#empAddr").val(data.empAddr);
                         $("#empPhone").val(data.empPhone);
                         $("#empIdentity").val(data.empIdentity);
-                        $("#empSex").val(data.empSex);
+                        $("#empSex").val(data.empSexId);
                         $("#deptId").val(data.deptId);
                         $("#empDescribe").val(data.empDescribe);
                     })
@@ -130,6 +130,11 @@
                     // , btnAlign: 'r'
                     , closeBtn: 1
                     , yes: function () {
+                        let empName = $("#empName").val().trim();
+                        if (empName.length < 2 || empName.length > 19){
+                            layer.msg('姓名长度必须在2-20个字符之间！', {icon: 5});
+                            return;
+                        }
                         let empPhone = $("#empPhone").val();
                         //表单校验
                         if (!new RegExp(/^1\d{10}$/).test(empPhone)) {
@@ -142,7 +147,6 @@
                             return;
                         }
                         let id = $("#id").val();
-                        let empName = $("#empName").val();
                         let empNativePlace = $("#empNativePlace").val();
                         let empAddr = $("#empAddr").val();
                         let empSex = $("#empSex").val();
@@ -196,9 +200,26 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script type="text/javascript">
-    layui.use('layer', function () {
+    layui.use(['layer','form'], function () {
         let $ = layui.jquery
         let layer = layui.layer;
+        let form = layui.form;
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/emp/getDept.do',
+            dataType: 'json',
+            type: 'get',
+            success: function (result) {
+                //使用循环遍历，给下拉列表赋值
+                $.each(result, function (index, item) {
+                    console.log("11")
+                    //option 第一个参数是页面显示的值，第二个参数是传递到后台的值
+                    $('#deptId').append(new Option(item.deptName, item.deptId));//往下拉菜单里添加元素
+                })
+                //重新渲染 固定写法
+                form.render('select')
+            }
+        });
 
         let active = {
             offset: function (othis) {
@@ -215,20 +236,29 @@
                     , offset: 'auto'
                     , content: $("#add")
                     , btn: '保存'
-                    , btnAlign: 'r' //按钮居中
+                    //, btnAlign: 'r' 按钮居中
                     , yes: function () {
-                        let empName = $("#empName").val();
+                        let empName = $("#empName").val().trim();
+                        if (empName.length < 2 || empName.length > 19){
+                            layer.msg('姓名长度必须在2-20个字符之间！', {icon: 5});
+                            return;
+                        }
+                        let empPhone = $("#empPhone").val();
+                        //表单校验
+                        if (!new RegExp(/^1\d{10}$/).test(empPhone)) {
+                            layer.msg('请输入正确的手机号！', {icon: 5});
+                            return;
+                        }
+                        let empIdentity = $("#empIdentity").val();
+                        if (!new RegExp(/(^\d{15}$)|(^\d{17}(x|X|\d)$)/).test(empIdentity)) {
+                            layer.msg('请输入正确的身份证号！', {icon: 5});
+                            return;
+                        }
                         let empNativePlace = $("#empNativePlace").val();
                         let empAddr = $("#empAddr").val();
-                        let empPhone = $("#empPhone").val();
-                        let empIdentity = $("#empIdentity").val();
                         let empSex = $("#empSex").val();
                         let deptId = $("#deptId").val();
                         let empDescribe = $("#empDescribe").val();
-                        if (empName == null || empName === '') {
-                            layer.msg('员工名不能为空！', {icon: 5});
-                            return false;
-                        }
                         $.post("${pageContext.request.contextPath}/emp/add.do", {
                             empName: empName,
                             empNativePlace: empNativePlace,

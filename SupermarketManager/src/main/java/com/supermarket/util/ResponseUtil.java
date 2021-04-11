@@ -53,6 +53,7 @@ public class ResponseUtil {
 			empMap.put("empAddr", employees.getEmpAddr());
 			empMap.put("empPhone", employees.getEmpPhone());
 			empMap.put("empIdentity", employees.getEmpIdentity());
+			empMap.put("empSexId", employees.getEmpSex());
 			if (employees.getEmpSex() == 0) {
 				empMap.put("empSex", "Ů");
 			} else if (employees.getEmpSex() == 1) {
