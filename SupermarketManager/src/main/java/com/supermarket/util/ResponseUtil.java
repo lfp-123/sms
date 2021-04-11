@@ -1,7 +1,12 @@
 package com.supermarket.util;
 
+import com.supermarket.entity.Employees;
+import com.supermarket.service.EmpService;
+
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +23,7 @@ public class ResponseUtil {
 
 	public static Map<String, Object> resultFye(Integer page, Integer limit) {
 		Map<String, Object> map = new HashMap<>(2);
-		if(page==null || page.equals("")){
+		if(page == null){
 			map.put("page",0);
 		}else {
 			map.put("page", page * 10 - 10);
@@ -34,5 +39,32 @@ public class ResponseUtil {
 		result.put("data", data);
 		result.put("count", count);
 		return result;
+	}
+
+
+	public static List<Map<String, Object>> getEmpResultList(List<Employees> empList, EmpService empService) {
+		List<Map<String, Object>> resultList = new ArrayList<>();
+		Map<String, Object> empMap;
+		for (Employees employees : empList) {
+			empMap = new HashMap<>(16);
+			empMap.put("id", employees.getEmpId());
+			empMap.put("empName", employees.getEmpName());
+			empMap.put("empNativePlace", employees.getEmpNativePlace());
+			empMap.put("empAddr", employees.getEmpAddr());
+			empMap.put("empPhone", employees.getEmpPhone());
+			empMap.put("empIdentity", employees.getEmpIdentity());
+			if (employees.getEmpSex() == 0) {
+				empMap.put("empSex", "Å®");
+			} else if (employees.getEmpSex() == 1) {
+				empMap.put("empSex", "ÄÐ");
+			} else {
+				empMap.put("empSex", null);
+			}
+			empMap.put("deptId", employees.getDeptId());
+			empMap.put("empDept", empService.findDeptName(employees.getDeptId()));
+			empMap.put("empDescribe", employees.getEmpDescribe());
+			resultList.add(empMap);
+		}
+		return resultList;
 	}
 }

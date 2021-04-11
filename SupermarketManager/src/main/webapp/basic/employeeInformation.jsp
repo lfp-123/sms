@@ -41,11 +41,15 @@
         let $ = layui.$, active = {
             reload: function () {
                 let demoReload = $('#demoReload');
-                table.reload('testReload', {
-                    where: {
-                        empName: demoReload.val()
-                    }
-                });
+                let index = layer.msg("查询中，请稍后...", {icon: 16, time: false, shade: 0});
+                setTimeout(function () {
+                    table.reload('testReload', {
+                        where: {
+                            empName: demoReload.val()
+                        }
+                    });
+                    layer.close(index);
+                }, 800);
             }
         };
 
@@ -130,12 +134,12 @@
                         //表单校验
                         if (!new RegExp(/^1\d{10}$/).test(empPhone)) {
                             layer.msg('请输入正确的手机号！', {icon: 5});
-                            return ;
+                            return;
                         }
                         let empIdentity = $("#empIdentity").val();
                         if (!new RegExp(/(^\d{15}$)|(^\d{17}(x|X|\d)$)/).test(empIdentity)) {
                             layer.msg('请输入正确的身份证号！', {icon: 5});
-                            return ;
+                            return;
                         }
                         let id = $("#id").val();
                         let empName = $("#empName").val();
@@ -179,7 +183,7 @@
 </fieldset>
 <div class="demoTable">
     <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-        员工名称：
+        姓名：
         <div class="layui-inline">
             <input class="layui-input" name="empName" id="demoReload" autocomplete="off">
         </div>

@@ -30,8 +30,8 @@
         <result column="dept" jdbcType="INTEGER" property="dept"/>
     </resultMap>
 
-    <select id="findByEmpName"  resultMap="EmpMap" parameterType="Integer">
-			select * from sm_employees where emp_id=#{id}
+    <select id="findByEmpName"  resultMap="EmpMap" parameterType="string">
+			select * from sm_employees where emp_name=#{empName}
 	</select>
 
     <select id="findAll" parameterType="Map" resultMap="EmpMap">

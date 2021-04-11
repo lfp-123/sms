@@ -17,8 +17,8 @@ public class EmpServiceImpl implements EmpService {
     private EmployeesDao empDao;
 
     @Override
-    public Employees findByRoleName(Integer id) {
-        return empDao.findByEmpId(id);
+    public List<Employees> findByEmpName(String empName) {
+        return empDao.findByEmpName(empName);
     }
 
     @Override

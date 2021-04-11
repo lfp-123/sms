@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface EmpService {
-    Employees findByRoleName(Integer id);
+    List<Employees> findByEmpName(String empName);
 
     List<Employees> findAll(Map<String, Object> map);
 

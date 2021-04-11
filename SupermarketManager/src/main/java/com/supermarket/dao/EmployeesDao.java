@@ -35,5 +35,5 @@ public interface EmployeesDao {
 
     Long counts(Map<String, Object> map);
 
-    Employees findByEmpName(Integer id);
+    List<Employees> findByEmpName(String empName);
 }

@@ -8,6 +8,7 @@ import com.supermarket.entity.Employees;
 import com.supermarket.entity.EmployesWork;
 import com.supermarket.service.EmpService;
 import com.supermarket.util.ResponseUtil;
+import com.supermarket.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,34 +28,22 @@ public class EmpController {
 
     @ResponseBody
     @RequestMapping("/empList")
-    public Map<String, Object> userList(@RequestParam(value = "page", required = false) Integer page,
+    public Map<String, Object> userList(String empName,
+                                        @RequestParam(value = "page", required = false) Integer page,
                                         @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        List<Employees> empList = empService.findAll(result);
-        Map<String, Object> empMap;
-        List<Map<String, Object>> resultList = new ArrayList<>();
-        for (Employees employees : empList) {
-            empMap = new HashMap<>(16);
-            empMap.put("id", employees.getEmpId());
-            empMap.put("empName", employees.getEmpName());
-            empMap.put("empNativePlace", employees.getEmpNativePlace());
-            empMap.put("empAddr", employees.getEmpAddr());
-            empMap.put("empPhone", employees.getEmpPhone());
-            empMap.put("empIdentity", employees.getEmpIdentity());
-            if (employees.getEmpSex() == 0) {
-                empMap.put("empSex", "女");
-            } else if (employees.getEmpSex() == 1) {
-                empMap.put("empSex", "男");
+        try {
+            Long count = empService.count(result);
+            if (StringUtil.isNotEmpty(empName)) {
+                return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findByEmpName(empName), empService), count);
             } else {
-                empMap.put("empSex", null);
+                return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findAll(result), empService), count);
             }
-            empMap.put("deptId", employees.getDeptId());
-            empMap.put("empDept", empService.findDeptName(employees.getDeptId()));
-            empMap.put("empDescribe", employees.getEmpDescribe());
-            resultList.add(empMap);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("errorInfo", "系统内部异常，查询失败，请联系管理员");
+            return result;
         }
-        Long count = empService.count(result);
-        return ResponseUtil.result(resultList, count);
     }
 
     @ResponseBody
