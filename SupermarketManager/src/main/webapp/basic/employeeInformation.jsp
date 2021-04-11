@@ -107,7 +107,7 @@
                     type: 1
                     , anim: 5
                     , title: "修改员工"
-                    , area: ['1000px', '800px']
+                    , area: ['500px', '700px']
                     , resize: false
                     , offset: '0px'
                     , shade: 0
@@ -123,15 +123,24 @@
                         $("#empDescribe").val(data.empDescribe);
                     })
                     , btn: '保存'
-                    , btnAlign: 'r'
+                    // , btnAlign: 'r'
                     , closeBtn: 1
                     , yes: function () {
+                        let empPhone = $("#empPhone").val();
+                        //表单校验
+                        if (!new RegExp(/^1\d{10}$/).test(empPhone)) {
+                            layer.msg('请输入正确的手机号！', {icon: 5});
+                            return ;
+                        }
+                        let empIdentity = $("#empIdentity").val();
+                        if (!new RegExp(/(^\d{15}$)|(^\d{17}(x|X|\d)$)/).test(empIdentity)) {
+                            layer.msg('请输入正确的身份证号！', {icon: 5});
+                            return ;
+                        }
                         let id = $("#id").val();
                         let empName = $("#empName").val();
                         let empNativePlace = $("#empNativePlace").val();
                         let empAddr = $("#empAddr").val();
-                        let empPhone = $("#empPhone").val();
-                        let empIdentity = $("#empIdentity").val();
                         let empSex = $("#empSex").val();
                         let deptId = $("#deptId").val();
                         let empDescribe = $("#empDescribe").val();
@@ -184,19 +193,22 @@
 </script>
 <script type="text/javascript">
     layui.use('layer', function () {
-        let $ = layui.jquery, layer = layui.layer;
+        let $ = layui.jquery
+        let layer = layui.layer;
+
         let active = {
             offset: function (othis) {
                 let type = othis.data('type')
                     , text = othis.text();
+
                 layer.open({
                     type: 1
                     , anim: 5
                     , title: "添加员工"
-                    , area: ['700px', '700px']
+                    , area: ['500px', '700px']
                     , resize: false
                     , shade: 0
-                    , offset: '60px'
+                    , offset: 'auto'
                     , content: $("#add")
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中
@@ -255,7 +267,7 @@
         <div class="layui-form-item">
             <input type="hidden" name="id" id="id" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="width: 450px;">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
                 <input type="text" name="empName" id="empName" lay-verify="required"
@@ -263,7 +275,7 @@
                        placeholder="请输入姓名" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="width: 450px;">
             <label class="layui-form-label">籍贯</label>
             <div class="layui-input-block">
                 <input type="text" name="empNativePlace" id="empNativePlace"
@@ -271,12 +283,14 @@
                        placeholder="请输入籍贯" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="width: 450px;">
             <label class="layui-form-label">地址</label>
-            <input type="text" name="empAddr" id="empAddr" autocomplete="off"
-                   placeholder="请输入地址" class="layui-input">
+            <div class="layui-input-block">
+                <input type="text" name="empAddr" id="empAddr" autocomplete="off"
+                       placeholder="请输入地址" class="layui-input">
+            </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="width: 450px;">
             <label class="layui-form-label">电话</label>
             <div class="layui-input-block">
                 <input type="text" name="empPhone" id="empPhone" lay-verify="phone"
@@ -284,7 +298,7 @@
                        placeholder="请输入电话" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="width: 450px;">
             <label class="layui-form-label">身份证</label>
             <div class="layui-input-block">
                 <input type="text" name="empIdentity" id="empIdentity" lay-verify="identity"
@@ -292,22 +306,25 @@
                        placeholder="请输入身份证" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="width: 450px;">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
-                <select name="empSex" id="empSex">
+                <select name="empSex" id="empSex" class="layui-form-select">
+                    <option value="2">请选择</option>
                     <option value="0">女</option>
                     <option value="1">男</option>
                 </select>
             </div>
         </div>
-        <div class="layui-form-item" lay-filter="deptId">
+        <div class="layui-form-item" lay-filter="deptId" style="width: 450px;">
             <label class="layui-form-label">部门</label>
-            <select name="deptId" id="deptId">
-                <option value="null">请选择</option>
-            </select>
+            <div class="layui-input-block">
+                <select name="deptId" id="deptId" class="layui-form-select">
+                    <option value="0">请选择</option>
+                </select>
+            </div>
         </div>
-        <div class="layui-form-item layui-form-text">
+        <div class="layui-form-item layui-form-text" style="width: 450px;">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-block">
             <textarea name="empDescribe" id="empDescribe" placeholder="请输入描述" class="layui-textarea"

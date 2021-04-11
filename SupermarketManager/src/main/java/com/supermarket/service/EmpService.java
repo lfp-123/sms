@@ -31,4 +31,6 @@ public interface EmpService {
     List<Dept> findAllDept();
 
     String findDeptName(Integer deptId);
+
+    Integer deleteew(Integer id);
 }

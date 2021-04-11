@@ -33,12 +33,12 @@ public class Employees implements Serializable {
     /**
      * 员工电话
      */
-    private Integer empPhone;
+    private String empPhone;
 
     /**
      * 员工身份证号
      */
-    private Integer empIdentity;
+    private String empIdentity;
 
     /**
      * 员工性别：0女1男
