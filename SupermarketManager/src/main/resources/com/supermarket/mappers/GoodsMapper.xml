@@ -19,41 +19,49 @@
         <result property="unit" column="unit"/>
         <result property="typeId" column="type_id"/>
         <result property="number" column="number"/>
-        <result property="salenumber" column="salenumber"/>
-        <result property="returnnumber" column="returnnumber"/>
+        <result property="saleNumber" column="salenumber"/>
+        <result property="returnNumber" column="returnnumber"/>
     </resultMap>
+
+    <sql id="allColumnName">
+        id
+        , inventory_quantity, last_purchasing_price, min_num, model, name, producer, purchasing_price, remarks,
+        selling_price, state, unit, type_id, number, salenumber, returnnumber
+    </sql>
 
     <!-- 查询所有商品 -->
     <select id="findAll" parameterType="Map" resultMap="GoodsResult">
-        select * from sm_goods
+        select
+        <include refid="allColumnName"/>
+        from sm_goods
         <where>
-            <if test="name!=null and name!='' ">
+            <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
-            <if test="type_id!=null and type_id!='' ">
-                and type_id =#{type_id}
+            <if test="typeId != null and typeId != ''">
+                and type_id = #{typeId}
             </if>
-            <if test="state!=null">
-                and state =#{state}
+            <if test="state != null">
+                and state = #{state}
             </if>
         </where>
-        <if test="page!=null and limit!=null">
+        <if test="page != null and limit != null">
             limit #{page},#{limit}
         </if>
     </select>
 
     <!-- 查询总记录数 -->
     <select id="count" parameterType="Map" resultType="Long">
-        select count(*) from sm_goods
+        select count(1) from sm_goods
         <where>
-            <if test="name!=null and name!='' ">
+            <if test="name != null and name != ''">
                 and name like "%"#{name}"%"
             </if>
-            <if test="state!=null ">
-                and state =#{state}
+            <if test="state != null ">
+                and state = #{state}
             </if>
-            <if test="type_id!=null and type_id!='' ">
-                and type_id =#{type_id}
+            <if test="typeId != null and typeId != ''">
+                and type_id = #{typeId}
             </if>
         </where>
     </select>
@@ -61,96 +69,108 @@
     <!-- 添加商品 -->
     <insert id="add" parameterType="Goods">
         insert into sm_goods
-        values (null, '0', #{last_purchasing_price}, #{min_num}, #{model}, #{name}, #{producer}, #{purchasing_price},
-                #{remarks}, #{selling_price}, '2', #{unit}, #{type_id}, #{number}, '0', '0')
+        values (null, '0', #{lastPurchasingPrice}, #{minNum}, #{model}, #{name}, #{producer}, #{purchasingPrice},
+                #{remarks}, #{sellingPrice}, '2', #{unit}, #{typeId}, #{number}, '0', '0')
     </insert>
 
     <!-- 更新商品 -->
     <update id="update" parameterType="Goods">
         update sm_goods
         <set>
-            <if test="last_purchasing_price!=null and last_purchasing_price!=''">
-                last_purchasing_price=#{last_purchasing_price},
+            <if test="lastPurchasingPrice != null and lastPurchasingPrice != ''">
+                last_purchasing_price = #{lastPurchasingPrice},
             </if>
-            <if test="min_num!=null and min_num!=''">
-                min_num=#{min_num},
+            <if test="minNum != null and minNum != ''">
+                min_num = #{minNum},
             </if>
-            <if test="model!=null and model!=''">
-                model=#{model},
+            <if test="model != null and model != ''">
+                model = #{model},
             </if>
-            <if test="number!=null">
-                number=#{number},
+            <if test="number != null">
+                number = #{number},
             </if>
-            <if test="name!=null and name!=''">
-                name=#{name},
+            <if test="name != null and name != ''">
+                name = #{name},
             </if>
-            <if test="salenumber!=null ">
-                salenumber=#{salenumber},
+            <if test="salenumber != null">
+                salenumber = #{salenumber},
             </if>
-            <if test="returnnumber!=null ">
-                returnnumber=#{returnnumber},
+            <if test="returnnumber != null">
+                returnnumber = #{returnnumber},
             </if>
-            <if test="producer!=null and producer!=''">
-                producer=#{producer},
+            <if test="producer != null and producer != ''">
+                producer = #{producer},
             </if>
-            <if test="purchasing_price!=null and purchasing_price!=''">
-                purchasing_price=#{purchasing_price},
+            <if test="purchasingPrice != null and purchasingPrice != ''">
+                purchasing_price = #{purchasingPrice},
             </if>
-            <if test="remarks!=null and remarks!=''">
-                remarks=#{remarks},
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
             </if>
-            <if test="selling_price!=null and selling_price!=''">
-                selling_price=#{selling_price},
+            <if test="sellingPrice != null and sellingPrice != ''">
+                selling_price = #{sellingPrice},
             </if>
-            <if test="unit!=null and unit!=''">
-                unit=#{unit},
+            <if test="unit != null and unit != ''">
+                unit = #{unit},
             </if>
-            <if test="inventory_quantity!=null and inventory_quantity!=''">
-                inventory_quantity=#{inventory_quantity},
+            <if test="inventoryQuantity != null and inventoryQuantity != ''">
+                inventory_quantity = #{inventoryQuantity},
             </if>
-            <if test="state!=null">
-                state=#{state},
+            <if test="state != null">
+                state = #{state},
             </if>
-            <if test="type_id!=null and type_id!='' ">
-                type_id =#{type_id},
+            <if test="typeId != null and typeId != '' ">
+                type_id = #{typeId},
             </if>
-            <if test="selling_price!=null and selling_price!=''">
-                selling_price=#{selling_price},
+            <if test="sellingPrice != null and sellingPrice!=''">
+                selling_price = #{sellingPrice},
             </if>
         </set>
-        where id=#{id}
+        where id = #{id}
     </update>
 
     <!-- 根据ID查询实体 -->
     <select id="findById" parameterType="Integer" resultMap="GoodsResult">
-        select *
+        select
+        <include refid="allColumnName"/>
         from sm_goods
         where id = #{id}
     </select>
 
     <!-- 根据Type_id查询实体 -->
     <select id="findByTypeId" parameterType="Integer" resultMap="GoodsResult">
-        select *
+        select
+        <include refid="allColumnName"/>
         from sm_goods
-        where type_id = #{type_id} limit 0,1
+        where type_id = #{typeId} limit 0,1
     </select>
 
     <select id="findCode" parameterType="Integer" resultMap="GoodsResult">
-        select *
+        select
+        <include refid="allColumnName"/>
         from sm_goods
         ORDER BY code DESC LIMIT 0,1
     </select>
 
     <!-- 修改时判断是否重复 -->
     <select id="isEchoe" parameterType="String" resultMap="GoodsResult">
-        select *
+        select
+        <include refid="allColumnName"/>
         from sm_goods
         where name = #{name}
     </select>
 
-    <select id="finddel" resultType="com.supermarket.entity.Goods">
-        select *
+    <select id="finddel" resultMap="GoodsResult">
+        select
+        <include refid="allColumnName"/>
         from sm_goods
         where id = #{id}
+    </select>
+
+    <select id="findByName" resultMap="GoodsResult">
+        select
+        <include refid="allColumnName"/>
+        from sm_goods
+        where name = #{name}
     </select>
 </mapper> 

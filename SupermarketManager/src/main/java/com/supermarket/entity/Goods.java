@@ -22,7 +22,7 @@ public class Goods {private Integer id;
 	private Integer typeId;
 	private String typeName;
 	private Integer number;
-	private Integer salenumber;
-	private Integer returnnumber;
+	private Integer saleNumber;
+	private Integer returnNumber;
 	private Integer numbers;
 }

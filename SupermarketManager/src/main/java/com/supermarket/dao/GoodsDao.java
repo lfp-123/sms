@@ -24,4 +24,6 @@ public interface GoodsDao {
     Goods findById(Integer id);
 
     Goods finddel(Integer id);
+
+    List<Goods> findByName(String name);
 }

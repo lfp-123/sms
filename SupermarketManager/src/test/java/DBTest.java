@@ -1,18 +1,12 @@
-import org.apache.ibatis.io.Resources;
-
 import java.io.IOException;
 
-/**
- * @author ${ÁÖ·æÅô}
- * @Title: DBTest
- * @ProjectName SupermarketManager
- * @Description: TODO
- * @date 2021/4/8 14:09
- */
 public class DBTest {
-
     public static void main(String[] args) throws IOException {
-
-
+        StringBuilder codeNum = new StringBuilder(Integer.toString(1));
+        int codeLength = codeNum.length();
+        for (int i = 4; i > codeLength; i--) {
+            codeNum.insert(0, "0");
+        }
+        System.out.println(codeNum.toString());
     }
 }

@@ -54,7 +54,7 @@
         let treepid = zTreeObj.getSelectedNodes()[0].pId;
         let treename = zTreeObj.getSelectedNodes()[0].name;
         console.log(treeNode.id);
-        document.getElementById("type_id").value = treeNode.id;
+        document.getElementById("typeId").value = treeNode.id;
         document.getElementById("ss").click();
     }
 
@@ -108,7 +108,7 @@
                     let newID = data.id;
                     zTreeObj.addNodes(treeNode, {
                         id: newID,
-                        p_id: treeNode.id,
+                        pId: treeNode.id,
                         name: name
                     });
                     let node = zTreeObj.getNodeByParam("id", newID, null); //根据新的id找到新添加的节点
@@ -143,17 +143,17 @@
     });
 </script>
 <script type="text/html" id="sexTpl1">
-    {{#  if(d.purchasing_price > 0 ){ }}
-    {{ d.purchasing_price+'￥'}}
+    {{#  if(d.purchasingPrice > 0 ){ }}
+    {{ d.purchasingPrice+'￥'}}
     {{#  } else { }}
-    {{ d.purchasing_price+'￥'}}
+    {{ d.purchasingPrice+'￥'}}
     {{#  } }}
 </script>
 <script type="text/html" id="sexTpl2">
-    {{#  if(d.last_purchasing_price > 0 ){ }}
-    {{ d.last_purchasing_price+'￥'}}
+    {{#  if(d.lastPurchasingPrice > 0 ){ }}
+    {{ d.lastPurchasingPrice+'￥'}}
     {{#  } else { }}
-    {{ d.last_purchasing_price+'￥'}}
+    {{ d.lastPurchasingPrice+'￥'}}
     {{#  } }}
 </script>
 <script>
@@ -170,9 +170,9 @@
                 , {field: 'model', align: 'center', width: '100px;', title: '型号'}
                 , {field: 'unit', align: 'center', width: '100px;', title: '单位'}
                 , {field: 'number', align: 'center', width: '100px;', title: '数量'}
-                , {field: 'purchasing_price', align: 'center', width: '100px;', title: '采购价', templet: '#sexTpl1'}
-                , {field: 'last_purchasing_price', align: 'center', width: '100px;', title: '出售价', templet: '#sexTpl2'}
-                , {field: 'min_num', align: 'center', width: '100px;', title: '库存下限'}
+                , {field: 'purchasingPrice', align: 'center', width: '100px;', title: '采购价', templet: '#sexTpl1'}
+                , {field: 'lastPurchasingPrice', align: 'center', width: '100px;', title: '出售价', templet: '#sexTpl2'}
+                , {field: 'minNum', align: 'center', width: '100px;', title: '库存下限'}
                 , {field: 'producer', align: 'center', width: '250px;', title: '生产厂商'}
                 , {field: 'remarks', align: 'center', width: '250px;', title: '备注'}
                 , {fixed: 'right', title: '操作', align: 'center', width: '180px;', toolbar: '#barDemo'}
@@ -183,11 +183,11 @@
         let $ = layui.$, active = {
             reload: function () {
                 let demoReload = $('#demoReload');
-                let type_id = $('#type_id');
+                let typeId = $('#typeId');
                 table.reload('testReload', {
                     where: {
                         name: demoReload.val(),
-                        type_id: type_id.val()
+                        typeId: typeId.val()
                     }
                 });
             }
@@ -229,13 +229,11 @@
                     , title: "修改商品"
                     , area: ['700px', '600px']
                     , resize: false
-                    , shade: 0
                     , offset: '30px'
                     , shade: 0
                     , content: $("#add", function () {
                         $.post("${pageContext.request.contextPath}/goodsType/typelist.do", function (result) {
-
-                            let deptSelect = $("#type_ids");
+                            let deptSelect = $("#typeIds");
                             let arr = eval('(' + result + ')');
                             for (let i = 0; i < arr.length; i++) {
                                 let opt = document.createElement("option");
@@ -243,7 +241,7 @@
                                 opt.innerText = arr[i].name;
                                 deptSelect.append(opt);
                             }
-                            $("#type_ids").val(data.type_id);
+                            $("#typeIds").val(data.typeId);
                             form.render("select");
                         });
                         $("#id").val(data.id);
@@ -251,12 +249,12 @@
                         $("#remarks").val(data.remarks);
                         $("#code").val(data.code);
                         $("#model").val(data.model);
-                        $("#purchasing_price").val(data.purchasing_price);
-                        $("#last_purchasing_price").val(data.last_purchasing_price);
-                        $("#min_num").val(data.min_num);
+                        $("#purchasingPrice").val(data.purchasingPrice);
+                        $("#lastPurchasingPrice").val(data.lastPurchasingPrice);
+                        $("#minNum").val(data.minNum);
                         $("#producer").val(data.producer);
                         $("#unit").val(data.unit);
-                        $("#type_id").val(data.typename);
+                        $("#typeId").val(data.typename);
                         $("#number").val(data.number);
                     })
                     , btn: '保存'
@@ -266,10 +264,10 @@
                         let id = $("#id").val();
                         let name = $("#name").val();
                         let model = $("#model").val();
-                        let type_id = $('#type_ids option:selected').val();
-                        let purchasing_price = $("#purchasing_price").val();
-                        let last_purchasing_price = $("#last_purchasing_price").val();
-                        let min_num = $("#min_num").val();
+                        let typeId = $('#typeIds option:selected').val();
+                        let purchasingPrice = $("#purchasingPrice").val();
+                        let lastPurchasingPrice = $("#lastPurchasingPrice").val();
+                        let minNum = $("#minNum").val();
                         let producer = $("#producer").val();
                         let numbers = $("#number").val();
                         let remarks = $("#remarks").val();
@@ -282,15 +280,15 @@
                             layer.msg('商品型号不能为空！', {icon: 5});
                             return false;
                         }
-                        if (purchasing_price == null || purchasing_price === '') {
+                        if (purchasingPrice == null || purchasingPrice === '') {
                             layer.msg('采购价不能为空！', {icon: 5});
                             return false;
                         }
-                        if (last_purchasing_price == null || last_purchasing_price === '') {
+                        if (lastPurchasingPrice == null || lastPurchasingPrice === '') {
                             layer.msg('出售价不能为空！', {icon: 5});
                             return false;
                         }
-                        if (min_num == null || min_num === '') {
+                        if (minNum == null || minNum === '') {
                             layer.msg('库存下限不能为空！', {icon: 5});
                             return false;
                         }
@@ -302,7 +300,7 @@
                             layer.msg('单位不能为空！', {icon: 5});
                             return false;
                         }
-                        if (type_id == null || type_id === '') {
+                        if (typeId == null || typeId === '') {
                             layer.msg('商品类别不能为空！', {icon: 5});
                             return false;
                         }
@@ -311,13 +309,13 @@
                             return false;
                         }
                         $.post("${pageContext.request.contextPath}/goods/update.do", {
-                            type_id: type_id,
+                            typeId: typeId,
                             id: id,
                             name: name,
                             model: model,
-                            purchasing_price: purchasing_price,
-                            last_purchasing_price: last_purchasing_price,
-                            min_num: min_num,
+                            purchasingPrice: purchasingPrice,
+                            lastPurchasingPrice: lastPurchasingPrice,
+                            minNum: minNum,
                             producer: producer,
                             remarks: remarks,
                             unit: unit,
@@ -347,7 +345,6 @@
                     , resize: false
                     , shade: 0
                     , offset: '30px'
-                    , shade: 0
                     , content: $("#jian", function () {
                         $("#ids").val(data.id);
                     })
@@ -393,7 +390,7 @@
                 let type = othis.data('type')
                     , text = othis.text();
                 $.post("${pageContext.request.contextPath}/goodsType/typelist.do", function (result) {
-                    let deptSelect = $("#type_ids");
+                    let deptSelect = $("#typeIds");
                     let arr = eval('(' + result + ')');
                     for (let i = 0; i < arr.length; i++) {
                         let opt = document.createElement("option");
@@ -419,11 +416,11 @@
                         let name = $("#name").val();
                         let model = $("#model").val();
                         let number = $("#number").val();
-                        let purchasing_price = $("#purchasing_price").val();
-                        let last_purchasing_price = $("#last_purchasing_price").val();
-                        let min_num = $("#min_num").val();
+                        let purchasingPrice = $("#purchasingPrice").val();
+                        let lastPurchasingPrice = $("#lastPurchasingPrice").val();
+                        let minNum = $("#minNum").val();
                         let producer = $("#producer").val();
-                        let type_id = $('#type_ids option:selected').val();
+                        let typeId = $('#typeIds option:selected').val();
                         let remarks = $("#remarks").val();
                         let unit = $("#unit").val();
                         if (name == null || name === '') {
@@ -438,15 +435,15 @@
                             layer.msg('商品型号不能为空！', {icon: 5});
                             return false;
                         }
-                        if (purchasing_price == null || purchasing_price === '') {
+                        if (purchasingPrice == null || purchasingPrice === '') {
                             layer.msg('采购价不能为空！', {icon: 5});
                             return false;
                         }
-                        if (last_purchasing_price == null || last_purchasing_price === '') {
+                        if (lastPurchasingPrice == null || lastPurchasingPrice === '') {
                             layer.msg('出售价不能为空！', {icon: 5});
                             return false;
                         }
-                        if (min_num == null || min_num === '') {
+                        if (minNum == null || minNum === '') {
                             layer.msg('库存下限不能为空！', {icon: 5});
                             return false;
                         }
@@ -458,18 +455,18 @@
                             layer.msg('单位不能为空！', {icon: 5});
                             return false;
                         }
-                        if (type_id == null || type_id === '') {
+                        if (typeId == null || typeId === '') {
                             layer.msg('商品类别不能为空！', {icon: 5});
                             return false;
                         }
                         $.post("${pageContext.request.contextPath}/goods/save.do", {
                             number: number,
-                            type_id: type_id,
+                            typeId: typeId,
                             name: name,
                             model: model,
-                            purchasing_price: purchasing_price,
-                            last_purchasing_price: last_purchasing_price,
-                            min_num: min_num,
+                            purchasingPrice: purchasingPrice,
+                            lastPurchasingPrice: lastPurchasingPrice,
+                            minNum: minNum,
                             producer: producer,
                             remarks: remarks,
                             unit: unit
@@ -521,7 +518,7 @@
                         商品名称：
                         <div class="layui-inline">
                             <input class="layui-input" name="name" id="demoReload" autocomplete="off">
-                            <input type="hidden" class="layui-input" name="type_id" id="type_id" autocomplete="off">
+                            <input type="hidden" class="layui-input" name="typeId" id="typeId" autocomplete="off">
                         </div>
                         <button class="layui-btn layui-btn-normal" data-type="reload" id="ss"><i class="layui-icon">&#xe615;</i>搜索
                         </button>
@@ -581,7 +578,7 @@
                    onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
                    onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
                    onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"
-                   name="price_min" id="purchasing_price" placeholder="￥" placeholder="请输入采购价" style="width: 250px;"
+                   name="price_min" id="purchasingPrice" placeholder="￥" placeholder="请输入采购价" style="width: 250px;"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -592,7 +589,7 @@
                    onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
                    onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
                    onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"
-                   name="price_min" id="last_purchasing_price" placeholder="￥" placeholder="请输入出售价"
+                   name="price_min" id="lastPurchasingPrice" placeholder="￥" placeholder="请输入出售价"
                    style="width: 250px;" autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -600,7 +597,7 @@
         <label class="layui-form-label" style="color: red;">库存下限</label>
         <div class="layui-input-block">
             <input type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
-                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " name="min_num" id="min_num"
+                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " name="minNum" id="minNum"
                    style="width: 250px;" lay-verify="title" autocomplete="off" placeholder="请输入库存下限"
                    class="layui-input">
         </div>
@@ -615,7 +612,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" style="color: red;">商品类别</label>
         <div class="layui-input-block" style="width: 250px;">
-            <select class="layui-input" name="type_ids" id="type_ids" lay-verify="required">
+            <select class="layui-input" name="typeIds" id="typeIds" lay-verify="required">
                 <option value="">请选择商品类别</option>
             </select>
         </div>

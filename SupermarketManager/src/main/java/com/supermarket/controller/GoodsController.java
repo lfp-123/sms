@@ -28,19 +28,14 @@ public class GoodsController {
                                          @RequestParam(value = "page", required = false) Integer page,
                                          @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        if (goods.getTypeId() != null) {
-            if (goods.getTypeId() == 1) {
-                goods.setTypeId(null);
-            } else {
-                result.put("type_id", goods.getTypeId());
-            }
-        }
+        List<Goods> goodsList;
         if (goods.getName() != null) {
-            String name = new String(goods.getName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            result.put("name", name);
+            result.put("name", goods);
+            goodsList = goodsService.findByName(goods.getName());
+        } else {
+            goodsList = goodsService.findAll(result);
         }
         result.put("state", 2);
-        List<Goods> goodsList = goodsService.findAll(result);
         Long count = goodsService.count(result);
         return ResponseUtil.result(goodsList, count);
     }
@@ -77,7 +72,7 @@ public class GoodsController {
     public Map<String, Object> updateReturn(Goods goods) {
         Map<String, Object> result = new HashMap<>(4);
         Goods goodsNumber = goodsService.findById(goods.getId());
-        int number = goodsNumber.getNumber() - goods.getReturnnumber();
+        int number = goodsNumber.getNumber() - goods.getReturnNumber();
         if (number > 0) {
             goods.setNumber(number);
         } else {
@@ -98,7 +93,6 @@ public class GoodsController {
         Goods goods = new Goods();
         goods.setState(0);
         goods.setId(id);
-        System.out.println(goods.getState());
         goodsService.update(goods);
         result.put("success", true);
         return result;
@@ -138,7 +132,7 @@ public class GoodsController {
     public Map<String, Object> updateNumber(Goods goods) {
         Map<String, Object> result = new HashMap<>(4);
         Goods goodsNumber = goodsService.findById(goods.getId());
-        goods.setSalenumber(goods.getNumber());
+        goods.setSaleNumber(goods.getNumber());
         int number = goodsNumber.getNumber() - goods.getNumber();
         if (number > 0) {
             goods.setNumber(number);
