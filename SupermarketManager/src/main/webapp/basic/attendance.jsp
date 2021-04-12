@@ -13,7 +13,7 @@
         let table = layui.table;
         let form = layui.form;
 
-        //数据表格显示
+        //考勤表格显示
         table.render({
             elem: '#demo'
             , url: '${pageContext.request.contextPath}/emp//empWorkList.do' //数据接口
