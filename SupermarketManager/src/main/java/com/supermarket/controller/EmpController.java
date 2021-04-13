@@ -28,16 +28,20 @@ public class EmpController {
 
     @ResponseBody
     @RequestMapping("/empList")
-    public Map<String, Object> userList(String empName,
-                                        @RequestParam(value = "page", required = false) Integer page,
-                                        @RequestParam(value = "limit", required = false) Integer limit) {
+    public Map<String, Object> userList(
+            String empName,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
         try {
             Long count = empService.count(result);
             if (StringUtil.isNotEmpty(empName)) {
-                return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findByEmpName(empName.trim()), empService), count);
+                return ResponseUtil.result(
+                        ResponseUtil.getEmpResultList(empService.findByEmpName(empName.trim()), empService),
+                        count);
             } else {
-                return ResponseUtil.result(ResponseUtil.getEmpResultList(empService.findAll(result), empService), count);
+                return ResponseUtil.result(
+                        ResponseUtil.getEmpResultList(empService.findAll(result), empService), count);
             }
         } catch (Exception e) {
             result.put("success", false);
@@ -139,9 +143,10 @@ public class EmpController {
 
     @ResponseBody
     @RequestMapping("/empWorkList")
-    public Map<String, Object> goodsList(String empName,
-                                         @RequestParam(value = "page", required = false) Integer page,
-                                         @RequestParam(value = "limit", required = false) Integer limit) {
+    public Map<String, Object> goodsList(
+            String empName,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
         try {
             Long count = empService.count(result);

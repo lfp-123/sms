@@ -70,7 +70,7 @@
                 , offset: '100px'
                 , shade: 0
                 , content: $("#add", function () {
-                    $("#employId").val(data.employ_id);
+                    // $("#employId").val(data.emp_id);
                     $("#name").val(data.emp_name);
                     $("#workDays").val(data.work_days);
                     $("#outWorkDays").val(data.out_work_days);
@@ -82,7 +82,7 @@
                 , btnAlign: 'r'
                 , closeBtn: 1
                 , yes: function () {
-                    let id = $("#id").val();
+                    let id = data.id;
                     let employId = $("#employId").val();
                     let name = $("#name").val();
                     let workDays = $("#workDays").val();
@@ -91,7 +91,7 @@
                     //编辑角色在这里修改就行了
                     $.post("${pageContext.request.contextPath}/emp/updatew.do", {
                         id: id,
-                        employId: employId,
+                        empId: employId,
                         name: name,
                         workDays: workDays,
                         outWorkDays: outWorkDays,
@@ -100,7 +100,7 @@
                         if (result.success) {
                             layer.closeAll();
                             layer.msg('用户修改成功！', {icon: 1});
-                            setTimeout("refreshPage()", 1000);
+                            setTimeout("refreshPage()", 100);
                         } else {
                             layer.msg(result.errorInfo, {icon: 5});
                         }

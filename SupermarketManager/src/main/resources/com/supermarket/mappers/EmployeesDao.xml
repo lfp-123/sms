@@ -151,19 +151,19 @@
                 leave_days = #{leaveDays},
             </if>
         </set>
-        where emp_id = #{empId}
+        where id = #{id}
     </update>
 
     <select id="findAllw" resultType="map">
         SELECT
         <include refid="empckColumn"/>, e.emp_name
-        FROM sm_employees_check left join sm_employees e on sm_employees_check.emp_id = e.emp_id
+        FROM sm_employees_check right join sm_employees e on sm_employees_check.emp_id = e.emp_id
         <if test="page != null and limit != null">
             limit #{page},#{limit}
         </if>
     </select>
 
-    <select id="findw" resultType="map">
+    <select id="findw" resultType="map" parameterType="string">
         SELECT
         <include refid="empckColumn"/>, e.emp_name
         FROM sm_employees e left join sm_employees_check on sm_employees_check.emp_id = e.emp_id

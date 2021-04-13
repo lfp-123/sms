@@ -76,7 +76,7 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public Integer updatew(EmployesWork role) {
-        return null;
+        return empDao.updatew(role);
     }
 
     public Integer deletew(Integer id) {
