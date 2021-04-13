@@ -32,9 +32,7 @@
     </sql>
 
     <sql id="empckColumn">
-        sm_employees_check
-        .
-        id
+        sm_employees_check.id
         , sm_employees_check.out_work_days, sm_employees_check.work_days, sm_employees_check.leave_days, sm_employees_check.emp_id
     </sql>
 
@@ -165,7 +163,7 @@
         </if>
     </select>
 
-    <select id="findw" resultType="map" parameterType="string">
+    <select id="findw" resultType="map">
         SELECT
         <include refid="empckColumn"/>, e.emp_name
         FROM sm_employees e left join sm_employees_check on sm_employees_check.emp_id = e.emp_id

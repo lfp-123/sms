@@ -31,7 +31,7 @@ public interface EmployeesDao {
 
     List<Map<String, Object>> findAllw(@Param("page") int page, @Param("limit") int limit);
 
-    List<Map<String, Object>> findw(String empName);
+    List<Map<String, Object>> findw(@Param("empName") String empName);
 
     Long counts(Map<String, Object> map);
 
