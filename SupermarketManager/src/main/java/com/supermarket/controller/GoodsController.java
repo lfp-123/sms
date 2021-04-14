@@ -30,13 +30,13 @@ public class GoodsController {
                                          @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
         List<Goods> goodsList;
+        result.put("state", 2);
         if (StringUtil.isNotEmpty(goods.getName())) {
             result.put("name", goods.getName());
             goodsList = goodsService.findByName(goods.getName());
         } else {
             goodsList = goodsService.findAll(result);
         }
-        result.put("state", 2);
         Long count = goodsService.count(result);
         return ResponseUtil.result(goodsList, count);
     }
@@ -78,14 +78,13 @@ public class GoodsController {
             goods.setNumber(number);
         } else {
             result.put("success", false);
-            result.put("errorInfo", "退你妈逼,都没了,还退");
+            result.put("errorInfo", "退货数量大于库存数量，退货失败");
             return result;
         }
         goodsService.update(goods);
         result.put("success", true);
         return result;
     }
-
 
     @ResponseBody
     @RequestMapping("/delete")
@@ -105,9 +104,8 @@ public class GoodsController {
                                         @RequestParam(value = "page", required = false) Integer page,
                                         @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        if (goods.getName() != null) {
-            String name = new String(goods.getName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            result.put("name", name);
+        if (StringUtil.isNotEmpty(goods.getName())) {
+            result.put("name", goods.getName());
         }
         result.put("state", 0);
         List<Goods> goodsList = goodsService.findAll(result);
@@ -139,7 +137,7 @@ public class GoodsController {
             goods.setNumber(number);
         } else {
             result.put("success", false);
-            result.put("errorInfo", "卖你妈逼,都没了,还卖");
+            result.put("errorInfo", "出售数量大于实际存货，出售失败");
             return result;
         }
         goodsService.update(goods);

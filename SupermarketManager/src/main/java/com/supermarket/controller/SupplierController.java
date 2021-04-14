@@ -1,12 +1,12 @@
 package com.supermarket.controller;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.supermarket.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,9 +29,8 @@ public class SupplierController {
                                         @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
 
-        if (supplier.getName() != null) {
-            String name = new String(supplier.getName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            result.put("name", name);
+        if (StringUtil.isNotEmpty(supplier.getName())) {
+            result.put("name", supplier.getName());
         }
         List<Supplier> supplierList = supplierService.findAll(result);
         Long count = supplierService.count(result);

@@ -92,11 +92,11 @@
             <if test="name != null and name != ''">
                 name = #{name},
             </if>
-            <if test="salenumber != null">
-                salenumber = #{salenumber},
+            <if test="saleNumber != null">
+                salenumber = #{saleNumber},
             </if>
-            <if test="returnnumber != null">
-                returnnumber = #{returnnumber},
+            <if test="returnNumber != null">
+                returnnumber = #{returnNumber},
             </if>
             <if test="producer != null and producer != ''">
                 producer = #{producer},

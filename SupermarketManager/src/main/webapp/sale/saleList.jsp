@@ -22,6 +22,7 @@
                 , {field: 'model', align: 'center', title: '型号'}
                 , {field: 'unit', align: 'center', title: '单位'}
                 , {field: 'saleNumber', align: 'center', title: '销售数量'}
+                , {field: 'number', align: 'center', title: '数量'}
                 , {field: 'purchasingPrice', align: 'center', title: '采购价', templet: '#sexTpl1'}
                 , {field: 'lastPurchasingPrice', align: 'center', title: '出售价', templet: '#sexTpl2'}
                 , {field: 'minNum', align: 'center', title: '库存下限'}
