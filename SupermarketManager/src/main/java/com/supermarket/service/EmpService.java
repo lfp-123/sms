@@ -31,4 +31,6 @@ public interface EmpService {
     String findDeptName(Integer deptId);
 
     List<Map<String, Object>> findw(String empName) ;
+
+    Integer addw(Integer empId);
 }

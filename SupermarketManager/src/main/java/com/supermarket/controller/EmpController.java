@@ -65,9 +65,12 @@ public class EmpController {
             Employees empName = empService.findRepeat(emp.getEmpName());
             if (empName == null) {
                 if (empService.add(emp) > 0) {
-                    result.put("success", true);
+                    if (empService.addw(emp.getEmpId()) > 0) {
+                        result.put("success", true);
+                    }
                 } else {
                     result.put("success", false);
+                    result.put("errorInfo", "系统内部异常，增加失败，请联系管理员！");
                 }
             } else {
                 result.put("success", false);

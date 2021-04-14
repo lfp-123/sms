@@ -67,6 +67,11 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
+    public Integer addw(Integer empId) {
+        return empDao.addw(empId);
+    }
+
+    @Override
     public List<Map<String, Object>> findAllw(int page, int limit) {
         if (page == 1) {
             page = 0;

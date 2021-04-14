@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.supermarket.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +30,8 @@ public class GoodsController {
                                          @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
         List<Goods> goodsList;
-        if (goods.getName() != null) {
-            result.put("name", goods);
+        if (StringUtil.isNotEmpty(goods.getName())) {
+            result.put("name", goods.getName());
             goodsList = goodsService.findByName(goods.getName());
         } else {
             goodsList = goodsService.findAll(result);

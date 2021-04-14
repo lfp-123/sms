@@ -100,7 +100,7 @@
                         if (result.success) {
                             layer.closeAll();
                             layer.msg('用户修改成功！', {icon: 1});
-                            setTimeout("refreshPage()", 100);
+                            setTimeout("refreshPage()", 1000);
                         } else {
                             layer.msg(result.errorInfo, {icon: 5});
                         }
@@ -108,12 +108,16 @@
 
                 }
                 , cancel: function (index, layero) {
-                    setTimeout("refreshPage()", 100);
+                    setTimeout("refreshPage()", 1000);
                     return false;
                 }
             });
         });
     });
+
+    function refreshPage() {
+        window.location.reload();
+    }
 </script>
 <body>
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">

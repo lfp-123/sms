@@ -91,18 +91,24 @@ public class UserController {
     @RequestMapping("/add")
     public Map<String, Object> add(User user) {
         Map<String, Object> result = new HashMap<>(2);
-        User userName = userService.findByUserName(user.getUserName());
-        if (userName == null) {
-            userService.add(user);
-            Integer s = user.getRoleId();
-            UserRole userRole = new UserRole();
-            userRole.setRoleId(s);
-            userRole.setUserId(user.getId());
-            userRoleService.add(userRole);
-            result.put("success", true);
-        } else {
+        try {
+            User userName = userService.findByUserName(user.getUserName());
+            if (userName == null) {
+                userService.add(user);
+                Integer s = user.getRoleId();
+                UserRole userRole = new UserRole();
+                userRole.setRoleId(s);
+                userRole.setUserId(user.getId());
+                userRoleService.add(userRole);
+                result.put("success", true);
+            } else {
+                result.put("success", false);
+                result.put("errorInfo", "用户名已存在！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             result.put("success", false);
-            result.put("errorInfo", "用户名已存在！");
+            result.put("errorInfo", "系统内部异常，添加失败，请联系管理员！");
         }
 
         return result;

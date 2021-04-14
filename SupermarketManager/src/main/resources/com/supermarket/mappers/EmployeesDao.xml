@@ -100,6 +100,9 @@
         values (#{empName}, #{empNativePlace}, #{empAddr}, #{empPhone}, #{empIdentity}, #{empSex}, #{deptId},
                 #{empDescribe})
     </insert>
+    <insert id="addw" parameterType="integer">
+        insert into sm_employees_check set emp_id = #{empId}
+    </insert>
 
     <delete id="delete" parameterType="Integer">
         delete
