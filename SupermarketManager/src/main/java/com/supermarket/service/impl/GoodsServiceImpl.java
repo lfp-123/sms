@@ -60,4 +60,9 @@ public class GoodsServiceImpl implements GoodsService {
     public Goods findById(Integer id) {
         return goodsDao.findById(id);
     }
+
+    @Override
+    public List<Goods> findByName(String name) {
+        return goodsDao.findByName(name);
+    }
 }

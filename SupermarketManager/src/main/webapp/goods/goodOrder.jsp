@@ -68,7 +68,7 @@
         $.post("${pageContext.request.contextPath}/supplier/supplierlist.do", function (result) {
             if (result.success) {
 
-                let deptSelect = $("#supplier_id");
+                let deptSelect = $("#supplierId");
                 for (let i = 0; i < result.supplierList.length; i++) {
                     let opt = document.createElement("option");
                     opt.value = result.supplierList[i].id;
@@ -83,7 +83,7 @@
         //监听提交
         form.on('submit(demo1)', function (data) {
             let dh = $("#dh").text();
-            if (data.field['supplier_id'] === -1) {
+            if (data.field['supplierId'] === -1) {
                 layer.msg("供应商不能为空");
                 return false;
             }
@@ -91,8 +91,8 @@
                 layer.msg("支付金额不能为空");
                 return false;
             }
-            if (data.field['paymoney'] < 0) {
-                layer.msg("支付金额不能小于0");
+            if (!new RegExp(/^[0-9]+(\.[0-9]{1,2})?$/).test(data.field['paymoney'])) {
+                layer.msg('请输入正确的金额！', {icon: 5});
                 return false;
             }
             if (data.field['paydate'] === "") {
@@ -103,7 +103,7 @@
                 url: "${pageContext.request.contextPath}/orderList/orderSave.do",
                 type: "POST",
                 data: {
-                    supplier_id: data.field['supplier_id'],
+                    supplierId: data.field['supplierId'],
                     paymoney: data.field['paymoney'],
                     releaseStrPay: data.field['paydate'],
                     state: data.field['state'],
@@ -141,7 +141,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">供应商</label>
                 <div class="layui-input-block">
-                    <select name="supplier_id" id="supplier_id">
+                    <select name="supplierId" id="supplierId">
                         <option value="-1"></option>
                     </select>
                 </div>

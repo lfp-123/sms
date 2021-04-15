@@ -25,13 +25,13 @@ public interface EmpService {
 
     Integer updatew(EmployesWork role);
 
-    List<EmployesWork> findAllw(int page, int limit) ;
-
-    Long counts(Map<String, Object> map);
+    List<Map<String, Object>> findAllw(int page, int limit) ;
 
     List<Dept> findAllDept();
 
     String findDeptName(Integer deptId);
 
-    Integer deleteew(Integer id);
+    List<Map<String, Object>> findw(String empName) ;
+
+    Integer addw(Integer empId);
 }

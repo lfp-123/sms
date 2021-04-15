@@ -23,4 +23,6 @@ public interface GoodsService {
     Goods finddel(Integer id);
 
     Goods findById(Integer id);
+
+    List<Goods> findByName(String name);
 }

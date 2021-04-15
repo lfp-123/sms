@@ -21,10 +21,11 @@
                 {field: 'name', align: 'center', title: '商品名称'}
                 , {field: 'model', align: 'center', title: '型号'}
                 , {field: 'unit', align: 'center', title: '单位'}
-                , {field: 'returnnumber', align: 'center', title: '退货数量'}
-                , {field: 'purchasing_price', align: 'center', title: '采购价', templet: '#sexTpl1'}
-                , {field: 'last_purchasing_price', align: 'center', title: '出售价', templet: '#sexTpl2'}
-                , {field: 'min_num', align: 'center', title: '库存下限'}
+                , {field: 'number', align: 'center', width: '100px;', title: '数量'}
+                , {field: 'returnNumber', align: 'center', title: '退货数量'}
+                , {field: 'purchasingPrice', align: 'center', title: '采购价', templet: '#sexTpl1'}
+                , {field: 'lastPurchasingPrice', align: 'center', title: '出售价', templet: '#sexTpl2'}
+                , {field: 'minNum', align: 'center', title: '库存下限'}
                 , {field: 'producer', align: 'center', title: '生产厂商'}
                 , {field: 'remarks', align: 'center', title: '备注'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
@@ -67,14 +68,14 @@
                     , btnAlign: 'r' //按钮居中
                     , yes: function () {
                         let id = $("#ids").val();
-                        let returnnumber = $("#returnnumber").val();
-                        if (returnnumber == null || returnnumber === '') {
+                        let returnNumber = $("#returnNumber").val();
+                        if (returnNumber == null || returnNumber === '') {
                             layer.msg('退货数量不能为空！', {icon: 5});
                             return false;
                         }
                         $.post("${pageContext.request.contextPath}/goods/updateReturn.do", {
                             id: id,
-                            returnnumber: returnnumber
+                            returnNumber: returnNumber
                         }, function (result) {
                             if (result.success) {
                                 layer.closeAll();
@@ -132,7 +133,7 @@
                    onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
                    onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value"
                    onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}"
-                   name="returnnumber" id="returnnumber" placeholder="请输入退货数量" style="width: 250px;" autocomplete="off"
+                   name="returnNumber" id="returnNumber" placeholder="请输入退货数量" style="width: 250px;" autocomplete="off"
                    class="layui-input">
         </div>
     </div>

@@ -9,17 +9,17 @@
 </head>
 <body>
 <script type="text/html" id="sexTpl1">
-    {{#  if(d.purchasing_price > 0 ){ }}
-    {{ d.purchasing_price+'￥'}}
+    {{#  if(d.purchasingPrice > 0 ){ }}
+    {{ d.purchasingPrice+'￥'}}
     {{#  } else { }}
-    {{ d.purchasing_price+'￥'}}
+    {{ d.purchasingPrice+'￥'}}
     {{#  } }}
 </script>
 <script type="text/html" id="sexTpl2">
-    {{#  if(d.last_purchasing_price > 0 ){ }}
-    {{ d.last_purchasing_price+'￥'}}
+    {{#  if(d.lastPurchasingPrice > 0 ){ }}
+    {{ d.lastPurchasingPrice+'￥'}}
     {{#  } else { }}
-    {{ d.last_purchasing_price+'￥'}}
+    {{ d.lastPurchasingPrice+'￥'}}
     {{#  } }}
 </script>
 <script type="text/javascript">
@@ -38,9 +38,9 @@
                 {field: 'name', align: 'center', title: '商品名称'}
                 , {field: 'model', align: 'center', title: '型号'}
                 , {field: 'unit', align: 'center', title: '单位'}
-                , {field: 'purchasing_price', align: 'center', title: '采购价', templet: '#sexTpl1'}
-                , {field: 'last_purchasing_price', align: 'center', title: '出售价', templet: '#sexTpl2'}
-                , {field: 'min_num', align: 'center', title: '库存下限'}
+                , {field: 'purchasingPrice', align: 'center', title: '采购价', templet: '#sexTpl1'}
+                , {field: 'lastPurchasingPrice', align: 'center', title: '出售价', templet: '#sexTpl2'}
+                , {field: 'minNum', align: 'center', title: '库存下限'}
                 , {field: 'producer', align: 'center', title: '生产厂商'}
                 , {field: 'remarks', align: 'center', title: '备注'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}

@@ -52,7 +52,7 @@ public class MenuController {
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject jsonObject = (JsonObject) jsonArray.get(i);
             if (!"open".equals(jsonObject.get("menuId").getAsString())) {
-                jsonObject.add("children", getAllMenuByParentId(jsonObject.get("p_id").getAsInt(), menuIdList));
+                jsonObject.add("children", getAllMenuByParentId(jsonObject.get("pId").getAsInt(), menuIdList));
             }
         }
         return jsonArray;
@@ -72,7 +72,7 @@ public class MenuController {
             // 节点名称
             jsonObject.addProperty("name", menu.getName());
             // 节点名称
-            jsonObject.addProperty("p_id", menu.getPId());
+            jsonObject.addProperty("pId", menu.getPId());
             if (menu.getMenuId() == 0) {
                 // 根节点
                 jsonObject.addProperty("menuId", "closed");

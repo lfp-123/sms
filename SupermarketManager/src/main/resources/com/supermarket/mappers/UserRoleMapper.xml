@@ -10,14 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<insert id="add"   parameterType="UserRole">
-		insert into sm_roleuser values(null,#{roleId},#{userId})
+		insert into sm_roleuser values(null, #{roleId}, #{userId})
 	</insert>
 	
 	<select id="findAll" resultMap="UserRoleResult" parameterType="String">
-		select t3.roleId from sm_user t1,sm_role t2,sm_roleuser t3 where t1.id=t3.userId and t2.id=t3.roleId and t1.userName=#{userName}
+		select t3.roleId from sm_user t1, sm_role t2, sm_roleuser t3
+		where t1.id = t3.userId and t2.id = t3.roleId and t1.userName = #{userName}
 	</select>
 	
 	<delete id="delete" parameterType="Integer">
-		delete from sm_roleuser where userId=#{userId}
+		delete from sm_roleuser where userId = #{userId}
 	</delete>
 </mapper> 

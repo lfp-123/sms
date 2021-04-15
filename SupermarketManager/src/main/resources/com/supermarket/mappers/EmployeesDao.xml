@@ -18,36 +18,57 @@
         <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
     </resultMap>
 
-    <select id="findByEmpId" resultMap="EmpMap" parameterType="Integer">
-        select * from sm_employees where emp_id=#{id}
-    </select>
-
     <resultMap id="EmpMapw" type="com.supermarket.entity.EmployesWork">
-        <id column="employ_id" jdbcType="INTEGER" property="employId"/>
+        <id column="employ_id" jdbcType="INTEGER" property="id"/>
         <result column="out_work_days" jdbcType="VARCHAR" property="outWorkDays"/>
         <result column="work_days" jdbcType="VARCHAR" property="workDays"/>
         <result column="leave_days" jdbcType="VARCHAR" property="leaveDays"/>
-        <result column="dept" jdbcType="INTEGER" property="dept"/>
+        <result column="dept" jdbcType="INTEGER" property="empId"/>
     </resultMap>
 
-    <select id="findByEmpName"  resultMap="EmpMap" parameterType="string">
-			select * from sm_employees where emp_name=#{empName}
-	</select>
+    <sql id="allColumnName">
+        emp_id
+        , emp_name, emp_native_place, emp_addr, emp_phone, emp_identity, emp_sex, dept_id, emp_describe
+    </sql>
+
+    <sql id="empckColumn">
+        sm_employees_check.id
+        , sm_employees_check.out_work_days, sm_employees_check.work_days, sm_employees_check.leave_days, sm_employees_check.emp_id
+    </sql>
+
+    <sql id="deptColumn">
+        dept_id
+        , dept_name
+    </sql>
+
+    <select id="findByEmpId" resultMap="EmpMap" parameterType="Integer">
+        select
+        <include refid="allColumnName"/>
+        from sm_employees where emp_id = #{id}
+    </select>
+
+    <select id="findByEmpName" resultMap="EmpMap" parameterType="string">
+        select
+        <include refid="allColumnName"/>
+        from sm_employees where emp_name = #{empName}
+    </select>
 
     <select id="findAll" parameterType="Map" resultMap="EmpMap">
-        SELECT * FROM sm_employees a
+        SELECT
+        <include refid="allColumnName"/>
+        FROM sm_employees a
         <where>
-            <if test="empName!=null and empName!='' ">
+            <if test="empName != null and empName != ''">
                 and emp_name like "%"#{empName}"%"
             </if>
         </where>
-        <if test="page!=null and limit!=null">
+        <if test="page != null and limit != null">
             limit #{page},#{limit}
         </if>
     </select>
 
     <select id="count" parameterType="Map" resultType="Long">
-        select count(*) from sm_employees
+        select count(1) from sm_employees
         <where>
             <if test="emp_name != null and emp_name!='' ">
                 and emp_name like "%"#{empName}"%"
@@ -56,85 +77,108 @@
     </select>
 
     <select id="findRepeat" resultMap="EmpMap" parameterType="String">
-			select * from sm_employees where emp_name = #{empName}
-	</select>
+        select
+        <include refid="allColumnName"/>
+        from sm_employees where emp_name = #{empName}
+    </select>
 
     <select id="findDeptName" resultType="java.lang.String" parameterType="integer">
-        select dept_name from sm_dept where dept_id = #{deptId}
+        select dept_name
+        from sm_dept
+        where dept_id = #{deptId}
     </select>
 
     <select id="findAllDept" resultMap="DeptMap">
-        select * from sm_dept
+        select
+        <include refid="deptColumn"/>
+        from sm_dept
     </select>
 
     <insert id="add" parameterType="Employees">
         insert into sm_employees
-        (emp_name,emp_native_place,emp_addr,emp_phone,emp_identity,emp_sex,dept_id,emp_describe)
-        values(#{empName},#{empNativePlace},#{empAddr},#{empPhone},#{empIdentity},#{empSex},#{deptId},#{empDescribe})
+        (emp_name, emp_native_place, emp_addr, emp_phone, emp_identity, emp_sex, dept_id, emp_describe)
+        values (#{empName}, #{empNativePlace}, #{empAddr}, #{empPhone}, #{empIdentity}, #{empSex}, #{deptId},
+                #{empDescribe})
+    </insert>
+    <insert id="addw" parameterType="integer">
+        insert into sm_employees_check set emp_id = #{empId}
     </insert>
 
     <delete id="delete" parameterType="Integer">
-		delete from sm_employees where emp_id=#{id}
-	</delete>
-
-    <delete id="deletew" parameterType="Integer">
-		delete from sm_employees_check where employ_id=#{employId}
-	</delete>
+        delete
+        from sm_employees
+        where emp_id = #{id}
+    </delete>
 
     <update id="update" parameterType="Employees">
         update sm_employees
         <set>
             <if test="empName != null and empName != ''">
-                emp_name=#{empName},
+                emp_name = #{empName},
             </if>
             <if test="empNativePlace != null and empNativePlace != ''">
-                emp_native_place=#{empNativePlace},
+                emp_native_place = #{empNativePlace},
             </if>
             <if test="empAddr != null and empAddr != ''">
-                emp_addr=#{empAddr},
+                emp_addr = #{empAddr},
             </if>
             <if test="empPhone != null and empPhone != ''">
-                emp_phone=#{empPhone},
+                emp_phone = #{empPhone},
             </if>
             <if test="empIdentity != null and empIdentity != ''">
-                emp_identity=#{empIdentity},
+                emp_identity = #{empIdentity},
             </if>
             <if test="empSex != null and empSex != '' and empSex != 2">
-                emp_sex=#{empSex},
+                emp_sex = #{empSex},
             </if>
             <if test="deptId != null and deptId != '' and deptId != 0">
-                dept_id=#{deptId},
+                dept_id = #{deptId},
             </if>
             <if test="empDescribe != null and empDescribe != ''">
-                emp_describe=#{empDescribe},
+                emp_describe = #{empDescribe},
             </if>
         </set>
-        where emp_id=#{empId}
-    </update>
-    <update id="updatew" parameterType="EmployesWork">
-        update  sm_employees_check
-        <set>
-            <if test="workDays!=null and workDays!=''">
-                work_days=#{workDays},
-            </if>
-            <if test="outWorkDays!=null and outWorkDays!=''">
-                out_work_days=#{outWorkDays},
-            </if>
-            <if test="leaveDays!=null and leaveDays!=''">
-                leave_days=#{leaveDays},
-            </if>
-        </set>
-        where employ_id=#{employId}
+        where emp_id = #{empId}
     </update>
 
-    <select id="findAllw"  resultMap="EmpMapw">
-        SELECT * FROM sm_employees_check
-        <if test="page!=null and limit!=null">
+    <update id="updatew" parameterType="EmployesWork">
+        update sm_employees_check
+        <set>
+            <if test="workDays != null and workDays != ''">
+                work_days = #{workDays},
+            </if>
+            <if test="outWorkDays != null and outWorkDays != ''">
+                out_work_days = #{outWorkDays},
+            </if>
+            <if test="leaveDays != null and leaveDays != ''">
+                leave_days = #{leaveDays},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findAllw" resultType="map">
+        SELECT
+        <include refid="empckColumn"/>, e.emp_name
+        FROM sm_employees_check right join sm_employees e on sm_employees_check.emp_id = e.emp_id
+        <if test="page != null and limit != null">
             limit #{page},#{limit}
         </if>
     </select>
 
+    <select id="findw" resultType="map" parameterType="string">
+        SELECT
+        <include refid="empckColumn"/>, e.emp_name
+        FROM sm_employees e left join sm_employees_check on sm_employees_check.emp_id = e.emp_id
+        <where>
+            <if test="empName != null and empName != ''">
+                e.emp_name = #{empName}
+            </if>
+        </where>
+    </select>
+
     <select id="counts" parameterType="Map" resultType="Long">
-        select count(*) from sm_employees_check
+        select count(1)
+        from sm_employees_check
     </select>
 </mapper>

@@ -12,7 +12,7 @@
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="url" value="jdbc:mysql://47.97.90.23:3306/supermarketmanagerdb?serverTimezone=GMT%2B8"/>
+        <property name="url" value="jdbc:mysql://47.97.90.23:3306/supermarketmanagerdb?serverTimezone=GMT%2B8&amp;useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="username" value="root"/>
         <property name="password" value="12345"/>
     </bean>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.supermarket.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,19 +29,16 @@ public class GoodsController {
                                          @RequestParam(value = "page", required = false) Integer page,
                                          @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        if (goods.getTypeId() != null) {
-            if (goods.getTypeId() == 1) {
-                goods.setTypeId(null);
-            } else {
-                result.put("type_id", goods.getTypeId());
-            }
-        }
-        if (goods.getName() != null) {
-            String name = new String(goods.getName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            result.put("name", name);
-        }
+        List<Goods> goodsList;
         result.put("state", 2);
-        List<Goods> goodsList = goodsService.findAll(result);
+        System.out.println(goods.getTypeId());
+        if (StringUtil.isNotEmpty(goods.getName())) {
+            result.put("name", goods.getName());
+        }
+        if (goods.getTypeId() != null) {
+            result.put("typeId", goods.getTypeId());
+        }
+        goodsList = goodsService.findAll(result);
         Long count = goodsService.count(result);
         return ResponseUtil.result(goodsList, count);
     }
@@ -77,19 +75,18 @@ public class GoodsController {
     public Map<String, Object> updateReturn(Goods goods) {
         Map<String, Object> result = new HashMap<>(4);
         Goods goodsNumber = goodsService.findById(goods.getId());
-        int number = goodsNumber.getNumber() - goods.getReturnnumber();
+        int number = goodsNumber.getNumber() - goods.getReturnNumber();
         if (number > 0) {
             goods.setNumber(number);
         } else {
             result.put("success", false);
-            result.put("errorInfo", "退你妈逼,都没了,还退");
+            result.put("errorInfo", "退货数量大于库存数量，退货失败");
             return result;
         }
         goodsService.update(goods);
         result.put("success", true);
         return result;
     }
-
 
     @ResponseBody
     @RequestMapping("/delete")
@@ -98,7 +95,6 @@ public class GoodsController {
         Goods goods = new Goods();
         goods.setState(0);
         goods.setId(id);
-        System.out.println(goods.getState());
         goodsService.update(goods);
         result.put("success", true);
         return result;
@@ -110,9 +106,8 @@ public class GoodsController {
                                         @RequestParam(value = "page", required = false) Integer page,
                                         @RequestParam(value = "limit", required = false) Integer limit) {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
-        if (goods.getName() != null) {
-            String name = new String(goods.getName().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
-            result.put("name", name);
+        if (StringUtil.isNotEmpty(goods.getName())) {
+            result.put("name", goods.getName());
         }
         result.put("state", 0);
         List<Goods> goodsList = goodsService.findAll(result);
@@ -138,13 +133,13 @@ public class GoodsController {
     public Map<String, Object> updateNumber(Goods goods) {
         Map<String, Object> result = new HashMap<>(4);
         Goods goodsNumber = goodsService.findById(goods.getId());
-        goods.setSalenumber(goods.getNumber());
+        goods.setSaleNumber(goods.getNumber());
         int number = goodsNumber.getNumber() - goods.getNumber();
         if (number > 0) {
             goods.setNumber(number);
         } else {
             result.put("success", false);
-            result.put("errorInfo", "卖你妈逼,都没了,还卖");
+            result.put("errorInfo", "出售数量大于实际存货，出售失败");
             return result;
         }
         goodsService.update(goods);

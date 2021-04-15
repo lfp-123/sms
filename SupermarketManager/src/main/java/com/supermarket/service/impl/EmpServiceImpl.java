@@ -13,80 +13,78 @@ import java.util.Map;
 
 @Service("empService")
 public class EmpServiceImpl implements EmpService {
-	@Resource
-	private EmployeesDao empDao;
+    @Resource
+    private EmployeesDao empDao;
 
+    @Override
+    public List<Employees> findByEmpName(String empName) {
+        return empDao.findByEmpName(empName);
+    }
 
-	@Override
-	public List<Employees> findByEmpName(String empName) {
-		return null;
-	}
+    @Override
+    public List<Employees> findAll(Map<String, Object> map) {
+        return empDao.findAll(map);
+    }
 
-	@Override
-	public List<Employees> findAll(Map<String, Object> map) {
-		return empDao.findAll(map);
-	}
+    @Override
+    public Long count(Map<String, Object> map) {
+        return empDao.count(map);
+    }
 
-	@Override
-	public Long count(Map<String, Object> map) {
-		return empDao.count(map);
-	}
+    @Override
+    public Employees findRepeat(String empName) {
+        return empDao.findRepeat(empName);
+    }
 
-	@Override
-	public Employees findRepeat(String empName) {
-		return null;
-	}
+    @Override
+    public Integer add(Employees emp) {
+        return empDao.add(emp);
+    }
 
-	@Override
-	public Integer add(Employees emp) {
-		return null;
-	}
+    @Override
+    public Integer delete(Integer id) {
+        return empDao.delete(id);
+    }
 
-	@Override
-	public Integer delete(Integer id) {
-		return null;
-	}
+    @Override
+    public Integer update(Employees emp) {
+        return empDao.update(emp);
+    }
 
+    @Override
+    public List<Dept> findAllDept() {
+        return empDao.findAllDept();
+    }
 
-	public void deletew(Integer id) {
-		empDao.deletew(id);
-	}
+    @Override
+    public String findDeptName(Integer deptId) {
+        return empDao.findDeptName(deptId);
+    }
 
-	@Override
-	public Integer update(Employees emp) {
-		return null;
-	}
+    @Override
+    public List<Map<String, Object>> findw(String empName) {
+        return empDao.findw(empName);
+    }
 
-	@Override
-	public Integer updatew(EmployesWork role) {
-		Integer updatew = empDao.updatew(role);
-		return updatew;
-	}
+    @Override
+    public Integer addw(Integer empId) {
+        return empDao.addw(empId);
+    }
 
-	@Override
-	public List<EmployesWork> findAllw(int page, int limit) {
-		if(page==1){
-			page=0;
-		}
-		return empDao.findAllw(page,limit);
-	}
-	@Override
-	public Long counts(Map<String, Object> map) {
-		return empDao.count(map);
-	}
+    @Override
+    public List<Map<String, Object>> findAllw(int page, int limit) {
+        if (page == 1) {
+            page = 0;
+        }
+        return empDao.findAllw(page, limit);
+    }
 
-	@Override
-	public List<Dept> findAllDept() {
-		return null;
-	}
+    @Override
+    public Integer updatew(EmployesWork role) {
+        return empDao.updatew(role);
+    }
 
-	@Override
-	public String findDeptName(Integer deptId) {
-		return null;
-	}
-
-	@Override
-	public Integer deleteew(Integer id) {
-		return null;
-	}
+    public Integer deletew(Integer id) {
+        return null;
+    }
 }

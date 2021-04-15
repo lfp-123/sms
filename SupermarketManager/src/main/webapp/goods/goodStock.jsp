@@ -23,9 +23,9 @@
                 , {field: 'model', align: 'center', title: '型号'}
                 , {field: 'unit', align: 'center', title: '单位'}
                 , {field: 'number', align: 'center', title: '数量'}
-                , {field: 'purchasing_price', align: 'center', title: '采购价', templet: '#sexTpl1'}
-                , {field: 'last_purchasing_price', align: 'center', title: '出售价', templet: '#sexTpl2'}
-                , {field: 'min_num', align: 'center', title: '库存下限'}
+                , {field: 'purchasingPrice', align: 'center', title: '采购价', templet: '#sexTpl1'}
+                , {field: 'lastPurchasingPrice', align: 'center', title: '出售价', templet: '#sexTpl2'}
+                , {field: 'minNum', align: 'center', title: '库存下限'}
                 , {field: 'producer', align: 'center', title: '生产厂商'}
                 , {field: 'remarks', align: 'center', title: '备注'}
             ]]
