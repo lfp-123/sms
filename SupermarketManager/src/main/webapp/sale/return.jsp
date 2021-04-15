@@ -15,6 +15,7 @@
         table.render({
             elem: '#demo2'
             , url: '${pageContext.request.contextPath}/goods/goodsList.do' //数据接口
+            , cellMinWidth: 80
             , page: true //开启分页
             , id: 'testReload'
             , cols: [[ //表头
