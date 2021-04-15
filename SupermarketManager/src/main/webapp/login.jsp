@@ -64,14 +64,9 @@
                 alert("密码不能为空！");
                 return false;
             }
-            if (imageCode == null || imageCode === "") {
-                alert("验证码不能为空！");
-                return false;
-            }
             $.post("${pageContext.request.contextPath}/user/login.do", {
                 userName: userName,
                 password: password,
-                imageCode: imageCode
             }, function (result) {
                 if (result.success) {
                     window.location.href = "${pageContext.request.contextPath}/main.jsp";

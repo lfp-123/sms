@@ -86,9 +86,9 @@
                     type: 1
                     , anim: 5
                     , title: "修改用户"
-                    , area: ['700px', '520px']
+                    , area: ['700px', '500px']
                     , resize: false
-                    , offset: '100px'
+                    , offset: 'auto'
                     , shade: 0
                     , content: $("#add", function () {
                         $.post("${pageContext.request.contextPath}/role/rolefind.do", function (result) {
@@ -176,14 +176,14 @@
                     }
                 });
             } else if (obj.event === 'cz') {
-                //修改用户
+                //重置密码
                 layer.open({
                     type: 1
                     , anim: 5
                     , title: "重置密码"
                     , area: ['500px', '180px']
                     , resize: false
-                    , offset: '100px'
+                    , offset: 'auto'
                     , shade: 0
                     , content: '<div style="padding: 30px;">是否要重置密码？重置后为"123"</div>'
                     , btn: '确认'
@@ -249,11 +249,11 @@
                 layer.open({
                     type: 1
                     , anim: 5
-                    , title: "添加商品"
-                    , area: ['700px', '600px']
+                    , title: "添加用户"
+                    , area: ['700px', '500px']
                     , resize: false
                     , shade: 0
-                    , offset: '30px'
+                    , offset: 'auto'
                     , content: $("#add")
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中

@@ -60,7 +60,7 @@
                     , area: ['700px', '200px']
                     , resize: false
                     , shade: 0
-                    , offset: '30px'
+                    , offset: 'auto'
                     , content: $("#add", function () {
                         $("#ids").val(data.id);
                     })

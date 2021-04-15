@@ -65,9 +65,9 @@
                 type: 1
                 , anim: 5
                 , title: "考勤修改"
-                , area: ['700px', '520px']
+                , area: ['700px', '500px']
                 , resize: false
-                , offset: '100px'
+                , offset: 'auto'
                 , shade: 0
                 , content: $("#add", function () {
                     // $("#employId").val(data.emp_id);

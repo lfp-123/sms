@@ -85,9 +85,9 @@
                     type: 1
                     , anim: 5
                     , title: "修改供应商"
-                    , area: ['700px', '520px']
+                    , area: ['700px', '500px']
                     , resize: false
-                    , offset: '100px'
+                    , offset: 'auto'
                     , shade: 0
                     , content: $("#add", function () {
                         $("#id").val(data.id);
@@ -182,7 +182,7 @@
                     , area: ['600px', '500px']
                     , resize: false
                     , shade: 0
-                    , offset: '60px'
+                    , offset: 'auto'
                     , content: $("#add")
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中

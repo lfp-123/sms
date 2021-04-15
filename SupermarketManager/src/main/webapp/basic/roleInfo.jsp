@@ -89,7 +89,7 @@
                     , title: "修改角色"
                     , area: ['500px', '320px']
                     , resize: false
-                    , offset: '100px'
+                    , offset: 'auto'
                     , shade: 0
                     , content: $("#add", function () {
                         $("#id").val(data.id);
@@ -161,7 +161,7 @@
                     , area: ['500px', '320px']
                     , resize: false
                     , shade: 0
-                    , offset: '60px'
+                    , offset: 'auto'
                     , content: $("#add")
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中

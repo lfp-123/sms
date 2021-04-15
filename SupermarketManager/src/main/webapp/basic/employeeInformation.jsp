@@ -111,9 +111,9 @@
                     type: 1
                     , anim: 5
                     , title: "修改员工"
-                    , area: ['500px', '700px']
+                    , area: ['500px', '500px']
                     , resize: false
-                    , offset: '0px'
+                    , offset: 'auto'
                     , shade: 0
                     , content: $("#add", function () {
                         $("#id").val(data.id);
@@ -230,7 +230,7 @@
                     type: 1
                     , anim: 5
                     , title: "添加员工"
-                    , area: ['500px', '700px']
+                    , area: ['500px', '500px']
                     , resize: false
                     , shade: 0
                     , offset: 'auto'

@@ -229,7 +229,7 @@
                     , title: "修改商品"
                     , area: ['700px', '600px']
                     , resize: false
-                    , offset: '30px'
+                    , offset: 'auto'
                     , shade: 0
                     , content: $("#add", function () {
                         $.post("${pageContext.request.contextPath}/goodsType/typelist.do", function (result) {
@@ -344,7 +344,7 @@
                     , area: ['700px', '200px']
                     , resize: false
                     , shade: 0
-                    , offset: '30px'
+                    , offset: 'auto'
                     , content: $("#jian", function () {
                         $("#ids").val(data.id);
                     })
@@ -408,7 +408,7 @@
                     , area: ['700px', '600px']
                     , resize: false
                     , shade: 0
-                    , offset: '30px'
+                    , offset: 'auto'
                     , content: $("#add")
                     , btn: '保存'
                     , btnAlign: 'r' //按钮居中
