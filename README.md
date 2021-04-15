@@ -1,6 +1,3 @@
-# sms
-超市管理系统
-
 # SSM+JSP+Shiro+Mysql实现超市管理系统
 
 ## 功能需求
