@@ -227,7 +227,7 @@
                     type: 1
                     , anim: 5
                     , title: "修改商品"
-                    , area: ['700px', '600px']
+                    , area: ['700px', '500px']
                     , resize: false
                     , offset: 'auto'
                     , shade: 0
@@ -405,7 +405,7 @@
                     type: 1
                     , anim: 5
                     , title: "添加商品"
-                    , area: ['700px', '600px']
+                    , area: ['700px', '500px']
                     , resize: false
                     , shade: 0
                     , offset: 'auto'
