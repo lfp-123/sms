@@ -9,7 +9,6 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <project.build.sourceEncoding>GBK</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -237,6 +236,7 @@
             <version>1.18.12</version>
         </dependency>
     </dependencies>
+
     <build>
         <finalName>SupermarketManager</finalName>
     </build>

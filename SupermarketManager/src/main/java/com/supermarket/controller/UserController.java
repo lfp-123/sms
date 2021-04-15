@@ -43,11 +43,6 @@ public class UserController {
     @RequestMapping("/login")
     public Map<String, Object> login(String imageCode, HttpSession session, User user) {
         Map<String, Object> map = new HashMap<>(2);
-        if (!session.getAttribute("checkcode").equals(imageCode)) {
-            map.put("success", false);
-            map.put("errorInfo", "—È÷§¬Î ‰»Î¥ÌŒÛ!");
-            return map;
-        }
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
         try {

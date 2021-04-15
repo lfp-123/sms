@@ -84,7 +84,7 @@ public class EmpServiceImpl implements EmpService {
         return empDao.updatew(role);
     }
 
-    public Integer deletew(Integer id) {
-        return null;
+    public void deletew(Integer id) {
+
     }
 }

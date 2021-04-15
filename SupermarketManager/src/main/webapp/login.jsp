@@ -60,10 +60,6 @@
             let userName = $("#userName").val();
             let password = $("#password").val();
             let imageCode = $("#imageCode").val();
-            if (userName == null || userName === "") {
-                alert("用户名不能为空！");
-                return false;
-            }
             if (password == null || password === "") {
                 alert("密码不能为空！");
                 return false;
@@ -97,13 +93,6 @@
     </dd>
     <dd class="pwd_icon">
         <input type="password" id="password" placeholder="密码" class="login_txtbx"/>
-    </dd>
-    <dd class="val_icon">
-        <div class="checkcode">
-            <input type="text" id="imageCode" name="imageCode" placeholder="验证码" maxlength="4" class="login_txtbx">
-            <img id="imgObj" title="看不清，换一张" src="${pageContext.request.contextPath}/drawImage.do"
-                 onclick="changeImg()" alt=""/>
-        </div>
     </dd>
     <dd>
         <input type="button" id="loginBtn" value="立即登陆" class="submit_btn"/>
