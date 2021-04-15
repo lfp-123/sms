@@ -23,7 +23,7 @@
 
     <!-- 查询所有商品 -->
     <select id="findAll" parameterType="Map" resultMap="OrderResult">
-        SELECT t1.id,T1.code,T1.state,T1.createdate,T1.paydate,T1.remark,T1.paymoney,T2.name,t2.contact,T2.number FROM
+        SELECT T1.id,T1.code,T1.state,T1.createdate,T1.paydate,T1.remark,T1.paymoney,T2.name,T2.contact,T2.number FROM
         sm_order T1 , sm_supplier T2
         WHERE T1.supplier_id = T2.id
         <if test="code != null and code != '' ">
@@ -38,13 +38,13 @@
     <select id="count" parameterType="Map" resultType="Long">
         SELECT count(1) FROM sm_order T1 , sm_supplier T2
         WHERE T1.supplier_id = T2.id
-        <if test="code!=null and code!='' ">
-            and code =# {code}
+        <if test="code != null and code != '' ">
+            and code = #{code}
         </if>
     </select>
 
     <insert id="add" parameterType="Order">
         insert into sm_order
-        values (null, #{code}, #{supplier_id}, #{state}, now(), #{paydate}, #{remark}, #{paymoney})
+        values (null, #{code}, #{supplierId}, #{state}, now(), #{paydate}, #{remark}, #{paymoney})
     </insert>
 </mapper> 

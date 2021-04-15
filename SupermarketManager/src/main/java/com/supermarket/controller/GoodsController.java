@@ -31,12 +31,14 @@ public class GoodsController {
         Map<String, Object> result = ResponseUtil.resultFye(page, limit);
         List<Goods> goodsList;
         result.put("state", 2);
+        System.out.println(goods.getTypeId());
         if (StringUtil.isNotEmpty(goods.getName())) {
             result.put("name", goods.getName());
-            goodsList = goodsService.findByName(goods.getName());
-        } else {
-            goodsList = goodsService.findAll(result);
         }
+        if (goods.getTypeId() != null) {
+            result.put("typeId", goods.getTypeId());
+        }
+        goodsList = goodsService.findAll(result);
         Long count = goodsService.count(result);
         return ResponseUtil.result(goodsList, count);
     }

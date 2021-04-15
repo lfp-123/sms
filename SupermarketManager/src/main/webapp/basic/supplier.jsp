@@ -21,8 +21,7 @@
             , page: true //开启分页
             , id: 'testReload'
             , cols: [[ //表头
-                {field: 'id', title: 'ID', align: 'center', sort: true, fixed: 'left'}
-                , {field: 'address', align: 'center', title: '地址'}
+                {field: 'address', align: 'center', title: '地址'}
                 , {field: 'contact', align: 'center', title: '联系人'}
                 , {field: 'name', align: 'center', title: '厂商'}
                 , {field: 'number', align: 'center', title: '联系方式'}

@@ -91,8 +91,8 @@
                 layer.msg("支付金额不能为空");
                 return false;
             }
-            if (data.field['paymoney'] < 0) {
-                layer.msg("支付金额不能小于0");
+            if (!new RegExp(/^[0-9]+(\.[0-9]{1,2})?$/).test(data.field['paymoney'])) {
+                layer.msg('请输入正确的金额！', {icon: 5});
                 return false;
             }
             if (data.field['paydate'] === "") {
